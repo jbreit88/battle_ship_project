@@ -22,4 +22,8 @@ class Board
     }
     #needs to have the cell class require so we can call Cell.new in hash?
   end
+
+  def valid_coordinate?(coordinate)
+    @cells.keys.include?(coordinate)
+  end
 end
