@@ -12,6 +12,6 @@ describe Board do
     board = Board.new
 
     expect(board.cells).to be_a(Hash)
-    expect(board.keys.length).to eq(16)
+    expect(board.cells.keys.length).to eq(16)
   end
 end
