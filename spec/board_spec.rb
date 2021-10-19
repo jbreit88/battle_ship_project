@@ -56,7 +56,7 @@ describe 'validating ship placements' do
     expect(board.valid_placement?(submarine, ["C2", "D3"])).to be(false)
   end
 
-  it 'can succesffully place ships on the board' do
+  it 'can validate possible ship placements' do
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
     submarine = Ship.new("Submarine", 2)
