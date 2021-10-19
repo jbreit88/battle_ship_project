@@ -4,9 +4,9 @@ RSpec.describe Ship do
   before(:each) do
     @cruiser = Ship.new("Cruiser", 3)
   end
+
   describe '#initialize' do
     it 'creates instance of ship' do
-
       expect(@cruiser).to be_instance_of Ship
     end
 
@@ -20,6 +20,7 @@ RSpec.describe Ship do
       expect(@cruiser.health).to eq 3
       expect(@cruiser.health).to eq(@cruiser.length)
     end
+  end
 
   describe '#sunk?' do
     it 'is not yet sunk' do
@@ -42,16 +43,5 @@ RSpec.describe Ship do
 
       expect(@cruiser.sunk?).to eq true
     end
-
-
-
   end
-
-
-
-  end
-
-
-
-
 end
