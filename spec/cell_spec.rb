@@ -72,7 +72,7 @@ RSpec.describe Cell do
 
     it 'changes fired upon to true when empty' do
       cell_2 = Cell.new("C3")
-      expect(cell_2.empty).to eq true
+      expect(cell_2.empty?).to eq true
       expect(cell_2.fired_upon).to be false
       cell_2.fire_upon
       expect(cell_2.fired_upon).to be true
@@ -85,6 +85,9 @@ end
 RSpec.describe Cell do
   before(:each) do
     @cell_1 = Cell.new("B4")
+    @cell_2 = Cell.new("C3")
+    @cruiser = Ship.new("Cruiser", 3)
+    @cell_2.place_ship(@cruiser)
   end
 
   describe '#render' do
@@ -94,8 +97,25 @@ RSpec.describe Cell do
 
     it 'tells if you miss' do
       @cell_1.fire_upon
-      require "pry"; binding.pry
       expect(@cell_1.render).to eq("M")
+    end
+
+    it 'tells if there is ship' do
+      expect(@cell_2.render(true)).to eq("S")
+    end
+
+    it 'tells if hit' do
+      @cell_2.fire_upon
+      expect(@cell_2.render).to eq("H")
+    end
+
+    it 'tells if sunk' do
+      expect(@cruiser.sunk?).to eq false
+      @cell_2.fire_upon
+      @cruiser.hit
+      @cruiser.hit
+      expect(@cruiser.sunk?).to eq true
+      expect(@cell_2.render).to eq("X")
     end
   end
 end
