@@ -16,9 +16,9 @@ class Cell
     @empty
   end
 
-  def place_ship(ship_name, ship_length)
-
-
+  def place_ship(ship_name)
+    @ship = ship_name
+    @empty = false
   end
 
 
