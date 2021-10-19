@@ -49,7 +49,25 @@ RSpec.describe Cell do
 
   describe '#fired_upon' do
     it 'returns default value false' do
-        expect(@cell.fired_upon?).to be false
+        expect(@cell.fired_upon).to be false
+    end
+  end
+
+  describe '#fire_upon' do
+    it 'changes @fired_upon to true' do
+      expect(@cell.fired_upon).to be false
+      @cell.fire_upon
+      expect(@cell.fired_upon).to be true
+      @cell.fire_upon # Checks firing on same spot twice doesn't affect @fired_upon value.
+      expect(@cell.fired_upon).to be true
+    end
+
+    it 'reduces ship health by 1' do
+      expect(@cruiser.health).to be 3
+      @cell.fire_upon
+      expect(@cruiser.health).to be 2 # Interaction map says command cell.ship.health. In pry that works, but here it doesn't. Problem?
+      @cell.fire_upon # Checks firing on same spot twice doesn't affect ship health.
+      expect(@cruiser.health).to be 2
     end
   end
 
