@@ -12,7 +12,7 @@ RSpec.describe Cell do
     end
 
     it 'has positional coordinate' do
-      expect(@cell.position).to eq("B4")
+      expect(@cell.coordinate).to eq("B4")
     end
 
 

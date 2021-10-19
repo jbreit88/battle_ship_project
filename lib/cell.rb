@@ -1,10 +1,10 @@
 class Cell
 
-  attr_reader :position
+  attr_reader :coordinate
 
-  def initialize(position)
+  def initialize(coordinate)
 
-    @position = position
+    @coordinate = coordinate
     
 
   end
