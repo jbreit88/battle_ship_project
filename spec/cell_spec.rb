@@ -69,6 +69,33 @@ RSpec.describe Cell do
       @cell.fire_upon # Checks firing on same spot twice doesn't affect ship health.
       expect(@cruiser.health).to be 2
     end
+
+    it 'changes fired upon to true when empty' do
+      cell_2 = Cell.new("C3")
+      expect(cell_2.empty).to eq true
+      expect(cell_2.fired_upon).to be false
+      cell_2.fire_upon
+      expect(cell_2.fired_upon).to be true
+      cell_2.fire_upon # Checks firing on same spot twice doesn't affect @fired_upon value.
+      expect(cell_2.fired_upon).to be true
+    end
+  end
+end
+
+RSpec.describe Cell do
+  before(:each) do
+    @cell_1 = Cell.new("B4")
   end
 
+  describe '#render' do
+    it 'has default value' do
+      expect(@cell_1.render).to eq(".")
+    end
+
+    it 'tells if you miss' do
+      @cell_1.fire_upon
+      require "pry"; binding.pry
+      expect(@cell_1.render).to eq("M")
+    end
+  end
 end
