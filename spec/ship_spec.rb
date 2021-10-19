@@ -21,6 +21,10 @@ RSpec.describe Ship do
       expect(@cruiser.health).to eq(@cruiser.length)
     end
 
+    it 'is not yet sunk' do
+      expect(@cruiser.sunk?).to be false
+    end
+
   end
 
 
