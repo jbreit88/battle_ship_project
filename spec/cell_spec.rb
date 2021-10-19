@@ -28,19 +28,29 @@ RSpec.describe Cell do
       expect(@cell.empty?).to be true
     end
   end
+end
+
+RSpec.describe Cell do
+  before(:each) do
+    @cell = Cell.new("B4")
+    @cruiser = Ship.new("Cruiser", 3)
+    @cell.place_ship(@cruiser)
+  end
 
   describe '#place_ship' do
     it 'changes ship' do # Is this test written properly?
-      @cell.place_ship(@cruiser)
       expect(@cell.ship).to eq(@cruiser)
     end
 
-    it 'becomes filled' do
-      @cell.place_ship(@cruiser)
+    it 'fills cell' do
       expect(@cell.empty?).to be false
     end
   end
 
-
+  describe '#fired_upon' do
+    it 'returns default value false' do
+        expect(@cell.fired_upon?).to be false
+    end
+  end
 
 end
