@@ -11,9 +11,14 @@ RSpec.describe Ship do
     end
 
     it "has name and length" do
-
       expect(@cruiser.length).to eq 3
       expect(@cruiser.name).to eq ('Cruiser')
+    end
+
+    it "has health the same as length" do
+
+      expect(@cruiser.health).to eq 3
+      expect(@cruiser.health).to eq(@cruiser.length)
     end
 
   end
