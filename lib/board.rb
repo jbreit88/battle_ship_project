@@ -20,14 +20,13 @@ class Board
      "D3" => Cell.new("D3"),
      "D4" => Cell.new("D4")
     }
-    #needs to have the cell class require so we can call Cell.new in hash?
   end
 
   def valid_coordinate?(coordinate)
     @cells.keys.include?(coordinate)
   end
 
-  def numbers_consecutive?
+  def numbers_consecutive_up?(coordinates)
     numbers = []
     coordinates.each_with_index do |item, index|
       if (index %2 == 1)
@@ -37,8 +36,19 @@ class Board
     numbers.map(&:to_i).each_cons(2).all? {|a, b| b == a + 1 }# returns boolean value
   end
 
-  def letters_consecutive?
-    letter = []
+  def numbers_consecutive_down?(coordinates)
+    numbers = []
+    coordinates.each_with_index do |item, index|
+      if (index %2 == 1)
+        numbers << item
+      end
+    end
+    # require "pry"; binding.pry
+    numbers.map(&:to_i).each_cons(2).all? {|a, b| b == a - 1 }# returns boolean value
+  end
+
+  def letters_consecutive?(coordinates)
+    letters = []
     coordinates.each_with_index do |item, index|
       if (index %2 == 0)
         letters << item
@@ -48,7 +58,9 @@ class Board
   end
 
   def valid_placement?(ship, coordinates)
-    coordinates.length == ship.length
+    up = numbers_consecutive_up?(coordinates)
+    down = numbers_consecutive_down?(coordinates)
+    coordinates.length == ship.length && up == false && down == false #down == true inverted coordinates should pass
   end
 end
 #ceck consecutive letters if ship is placed veritcally
