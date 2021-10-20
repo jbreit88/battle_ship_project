@@ -1,4 +1,5 @@
 require "rspec"
+require './lib/ship'
 require "./lib/board"
 
 describe Board do
