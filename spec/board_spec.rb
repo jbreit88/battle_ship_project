@@ -28,7 +28,14 @@ describe Board do
 end
 
 describe 'validating ship placements' do
-  xit 'can validate the length is equal to coordinates' do
+  it 'can turn coordinates into integers' do
+    board = Board.new
+    cruiser = Ship.new("Cruiser", 3)
+    submarine = Ship.new("Submarine", 2)
+
+    expect(cords_to_integers(["A1", "A2"])).to be_an(Array)
+  end
+  it 'can validate the length is equal to coordinates' do
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
     submarine = Ship.new("Submarine", 2)
@@ -37,7 +44,7 @@ describe 'validating ship placements' do
     expect(board.valid_placement?(submarine, ["A2", "A3", "A4"])).to be(false)
   end
 
-  it 'can check coordinates are consecutive' do
+  xit 'can check coordinates are consecutive' do
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
     submarine = Ship.new("Submarine", 2)
