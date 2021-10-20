@@ -30,23 +30,26 @@ end
 describe 'validating ship placements' do
   it '#cords to integers' do
     board = Board.new
-    cruiser = Ship.new("Cruiser", 3)
-    submarine = Ship.new("Submarine", 2)
 
     expect(board.cords_to_integers(["A1", "A2"])).to be_an(Array)
     expect(board.cords_to_integers(["A1", "A2"])).to eq([1, 2])
   end
 
-  it '#cords_to_letters' do
+  it '#cord_letters_to_integers' do
     board = Board.new
-    cruiser = Ship.new("Cruiser", 3)
-    submarine = Ship.new("Submarine", 2)
 
     expect(board.cord_letters_to_integers(["A1", "A2"])).to be_an(Array)
     expect(board.cord_letters_to_integers(["A1", "A2"])).to eq([65, 65])
   end
 
-  xit 'can validate the length is equal to coordinates' do
+  it '#single_letter_use' do
+    board = Board.new
+
+    expect(board.single_letter_use(["A1", "A2"])).to eq(1)
+    expect(board.single_letter_use(["A1", "B1"])).to eq(2)
+  end
+
+  it 'can validate the length is equal to coordinates' do
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
     submarine = Ship.new("Submarine", 2)
@@ -55,7 +58,8 @@ describe 'validating ship placements' do
     expect(board.valid_placement?(submarine, ["A2", "A3", "A4"])).to be(false)
   end
 
-  xit 'can check coordinates are consecutive' do
+
+  it 'can check coordinates are consecutive' do
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
     submarine = Ship.new("Submarine", 2)
@@ -66,7 +70,7 @@ describe 'validating ship placements' do
     expect(board.valid_placement?(submarine, ["C1", "B1"])).to be(false)
   end
 
-  xit 'cannot place ships diagonally' do
+  it 'cannot place ships diagonally' do
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
     submarine = Ship.new("Submarine", 2)
@@ -75,7 +79,7 @@ describe 'validating ship placements' do
     expect(board.valid_placement?(submarine, ["C2", "D3"])).to be(false)
   end
 
-  xit 'can validate possible ship placements' do
+  it 'can validate possible ship placements' do
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
     submarine = Ship.new("Submarine", 2)
