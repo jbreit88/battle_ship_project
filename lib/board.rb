@@ -60,7 +60,7 @@ class Board
   def valid_placement?(ship, coordinates)
     up = numbers_consecutive_up?(coordinates)
     down = numbers_consecutive_down?(coordinates)
-    coordinates.length == ship.length && up == false && down == false #down == true inverted coordinates should pass
+    coordinates.length == ship.length && up == false  #down == true inverted coordinates should pass
   end
 end
 #ceck consecutive letters if ship is placed veritcally
