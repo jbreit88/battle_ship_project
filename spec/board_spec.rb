@@ -104,6 +104,7 @@ RSpec.describe Board do
 
   describe '#render' do
     it 'prints board to terminal' do
+      require "pry"; binding.pry
       expect(@board.render).to eq("  1 2 3 4\nA . . . .\nB . . . .\nC . . . .\nD . . . .\n")
       expect(@board.render(true)).to eq("  1 2 3 4\nA S S S .\nB . . . .\nC . . . .\nD . . . .\n")
     end

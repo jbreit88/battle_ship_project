@@ -40,7 +40,7 @@ class Cell
         @render = "S"
       end
     elsif fired_upon? == false
-      @render
+      @render = "."
     elsif fired_upon? == true && empty? == true
       @render = "M"
     elsif @ship.sunk? == true || nil
