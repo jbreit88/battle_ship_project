@@ -46,7 +46,8 @@ class Board
     # require "pry"; binding.pry
     numbers.map(&:to_i).each_cons(2).all? {|a, b| b == a - 1 }# returns boolean value
   end
-
+  #.slice(1).to_i
+  #.slice(0).ord also gives integer for number
   def letters_consecutive?(coordinates)
     letters = []
     coordinates.each_with_index do |item, index|
@@ -65,3 +66,33 @@ class Board
 end
 #ceck consecutive letters if ship is placed veritcally
 #check consecutive numbers if ship is placed laterally
+
+def cords_to_letters(cords)
+  letters = []
+  cords.each do |cord|
+    letters << cord.slice(0).ord
+  end
+  letters
+end
+
+def cords_to_integers(cords)
+  integers = []
+  cords.each do |cord|
+    integers << cord.slice(1).to_i
+  end
+  integers
+end
+
+def ascending_letters
+  letter_list = cords_to_letters(cords)
+  if letter_list.first + (letter_list.length - 1) != letter_list.last
+    false
+  end
+end
+
+def descending_letters
+  letter_list = cords_to_letters(cords)
+  if letter_list.first - (letter_list.length + 1) != letter_list.last
+    false
+  end
+end
