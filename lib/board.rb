@@ -26,62 +26,78 @@ class Board
     @cells.keys.include?(coordinate)
   end
 
-  def numbers_consecutive_up?(coordinates)
-    numbers = []
-    coordinates.each_with_index do |item, index|
-      if (index %2 == 1)
-        numbers << item
-      end
-    end
-    numbers.map(&:to_i).each_cons(2).all? {|a, b| b == a + 1 }# returns boolean value
-  end
+  # def numbers_consecutive_up?(coordinates)
+  #   numbers = []
+  #   coordinates.each_with_index do |item, index|
+  #     if (index %2 == 1)
+  #       numbers << item
+  #     end
+  #   end
+  #   numbers.map(&:to_i).each_cons(2).all? {|a, b| b == a + 1 }# returns boolean value
+  # end
 
-  def numbers_consecutive_down?(coordinates)
-    numbers = []
-    coordinates.each_with_index do |item, index|
-      if (index %2 == 1)
-        numbers << item
-      end
-    end
-    # require "pry"; binding.pry
-    numbers.map(&:to_i).each_cons(2).all? {|a, b| b == a - 1 }# returns boolean value
-  end
+  # def numbers_consecutive_down?(coordinates)
+  #   numbers = []
+  #   coordinates.each_with_index do |item, index|
+  #     if (index %2 == 1)
+  #       numbers << item
+  #     end
+  #   end
+  #   # require "pry"; binding.pry
+  #   numbers.map(&:to_i).each_cons(2).all? {|a, b| b == a - 1 }# returns boolean value
+  # end
   #.slice(1).to_i
   #.slice(0).ord also gives integer for number
-  def letters_consecutive?(coordinates)
-    letters = []
-    coordinates.each_with_index do |item, index|
-      if (index %2 == 0)
-        letters << item
-      end
-    end
-    letters.map(&:to_i).each_cons(2).all? {|a, b| b == a + 1 }
-  end
+  # def letters_consecutive?(coordinates)
+  #   letters = []
+  #   coordinates.each_with_index do |item, index|
+  #     if (index %2 == 0)
+  #       letters << item
+  #     end
+  #   end
+  #   letters.map(&:to_i).each_cons(2).all? {|a, b| b == a + 1 }
+  # end
 
   def valid_placement?(ship, coordinates)
     up = numbers_consecutive_up?(coordinates)
     down = numbers_consecutive_down?(coordinates)
     coordinates.length == ship.length && up == false  #down == true inverted coordinates should pass
   end
+
+  def cords_to_integers(cords) #deletes letters from coordiantes
+    integers = []
+    cords.each do |cord|
+      integers << cord.slice(1).to_i
+    end
+    integers
+  end
+
+  def cord_letters_to_integers(cords)
+    letters = []
+    cords.each do |cord|
+      letters << cord.slice(0).ord
+    end
+    letters
+  end
 end
 #ceck consecutive letters if ship is placed veritcally
 #check consecutive numbers if ship is placed laterally
 
-def cords_to_letters(cords)
-  letters = []
-  cords.each do |cord|
-    letters << cord.slice(0).ord
-  end
-  letters
-end
-
-def cords_to_integers(cords)
-  integers = []
-  cords.each do |cord|
-    integers << cord.slice(1).to_i
-  end
-  integers
-end
+# def cords_to_letters(cords)
+#   letters = []
+#   cords.each do |cord|
+#     letters << cord.slice(0).ord
+#   end
+#   letters
+# end
+#
+# def cords_to_integers(cords)
+#   integers = []
+#   cords.each do |cord|
+#     integers << cord.slice(1).to_i
+#   end
+#   integers
+# end
 
 def ascending_letters
   letter_list = cords_to_letters(cords)
