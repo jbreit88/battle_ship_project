@@ -40,14 +40,14 @@ describe 'validating ship placements' do
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
     submarine = Ship.new("Submarine", 2)
-
+    require "pry"; binding.pry
     expect(board.valid_placement?(cruiser, ["A1", "A2", "A4"])).to be(false)
     expect(board.valid_placement?(submarine, ["A1", "C1"])).to be(false)
     expect(board.valid_placement?(cruiser, ["A3", "A2", "A1"])).to be(false)
     expect(board.valid_placement?(submarine, ["C1", "B1"])).to be(false)
   end
 
-  it 'cannot place ships diagonally' do
+  xit 'cannot place ships diagonally' do
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
     submarine = Ship.new("Submarine", 2)
@@ -56,12 +56,12 @@ describe 'validating ship placements' do
     expect(board.valid_placement?(submarine, ["C2", "D3"])).to be(false)
   end
 
-  it 'can validate possible ship placements' do
+  xit 'can validate possible ship placements' do
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
     submarine = Ship.new("Submarine", 2)
 
-    expect(board.valid_placement?(submarine, ["A1", "A2"])).to be(true)
     expect(board.valid_placement?(cruiser, ["B1", "C1", "D1"])).to be(true)
+    expect(board.valid_placement?(submarine, ["A1", "A2"])).to be(true)
   end
 end
