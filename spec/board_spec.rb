@@ -1,21 +1,23 @@
 require "rspec"
 require "./lib/board"
+require './lib/ship'
+require './lib/cell'
 
 describe Board do
-  it 'exists' do
+  xit 'exists' do
     board = Board.new
 
     expect(board).to be_an_instance_of(Board)
   end
 
-  it 'attributes' do
+  xit 'attributes' do
     board = Board.new
 
     expect(board.cells).to be_a(Hash)
     expect(board.cells.keys.length).to eq(16)
   end
 
-  it 'can validate coordinates' do
+  xit 'can validate coordinates' do
     board = Board.new
 
     expect(board.valid_coordinate?("A1")).to be(true)
@@ -36,11 +38,14 @@ describe 'validating ship placements' do
     expect(board.valid_placement?(submarine, ["A2", "A3", "A4"])).to be(false)
   end
 
-  it 'can check coordinates are consecutive' do
+  xit 'can check coordinates are consecutive' do
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
     submarine = Ship.new("Submarine", 2)
-    # require "pry"; binding.pry
+
+    board.valid_placement?(cruiser, ["A1", "A2", "A4"])
+
+
     expect(board.valid_placement?(cruiser, ["A1", "A2", "A4"])).to be(false)
     expect(board.valid_placement?(submarine, ["A1", "C1"])).to be(false)
     expect(board.valid_placement?(cruiser, ["A3", "A2", "A1"])).to be(false)
@@ -63,5 +68,43 @@ describe 'validating ship placements' do
 
     expect(board.valid_placement?(cruiser, ["B1", "C1", "D1"])).to be(true)
     expect(board.valid_placement?(submarine, ["A1", "A2"])).to be(true)
+  end
+end
+
+RSpec.describe Board do
+  before(:each) do
+    @board = Board.new
+    @cruiser = Ship.new("Cruiser", 3)
+    @board.place(@cruiser, ["A1", "A2", "A3"])
+  end
+
+  describe '#place' do
+    it 'puts ship on board' do
+      cell_1 = @board.cells["A1"]
+      cell_2 = @board.cells["A2"]
+      cell_3 = @board.cells["A3"]
+
+      expect(@board.cells["A1"].ship).to eq(@cruiser)
+
+      expect(@board.cells["A2"].ship).to eq(@cruiser)
+
+      expect(@board.cells["A3"].ship).to eq(@cruiser)
+
+      expect(cell_3.ship).to eq(cell_1.ship)
+
+    end
+  end
+
+  describe '#overlapping ships' do
+    it 'verifies no cell can hold two ships' do
+      submarine = Ship.new("Submarine", 2)
+      expect(board.valid_placement?(submarine, ["A1", "B1"])).to be false
+    end
+  end
+
+  describe '#render' do
+    it 'prints board to terminal' do
+      
+    end
   end
 end

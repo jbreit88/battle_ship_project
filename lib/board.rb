@@ -57,10 +57,32 @@ class Board
     letters.map(&:to_i).each_cons(2).all? {|a, b| b == a + 1 }
   end
 
-  def valid_placement?(ship, coordinates)
-    up = numbers_consecutive_up?(coordinates)
-    down = numbers_consecutive_down?(coordinates)
-    coordinates.length == ship.length && up == false  #down == true inverted coordinates should pass
+
+
+
+  # def valid_placement?(ship, coordinates)
+  #   require "pry"; binding.pry
+  #   chars_array = coordinates.map(&:chars)
+  #   if coordinates.length == ship.length
+  #     chars_array.map.first.all?
+  #
+  #     end
+  #   end
+  #
+  #
+  #
+  #
+  #
+  # end
+
+  def place(ship, coordinates)
+    # if valid_placement?(ship, coordinates)
+      coordinates.map { |coordinate| @cells[coordinate].place_ship(ship)}
+    # end
+  end
+
+  def render
+    
   end
 end
 #ceck consecutive letters if ship is placed veritcally
