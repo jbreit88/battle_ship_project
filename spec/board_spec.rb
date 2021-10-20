@@ -79,7 +79,7 @@ RSpec.describe Board do
   end
 
   describe '#place' do
-    it 'puts ship on board' do
+    xit 'puts ship on board' do
       cell_1 = @board.cells["A1"]
       cell_2 = @board.cells["A2"]
       cell_3 = @board.cells["A3"]
@@ -96,15 +96,16 @@ RSpec.describe Board do
   end
 
   describe '#overlapping ships' do
-    it 'verifies no cell can hold two ships' do
+    xit 'verifies no cell can hold two ships' do
       submarine = Ship.new("Submarine", 2)
-      expect(board.valid_placement?(submarine, ["A1", "B1"])).to be false
+      expect(@board.valid_placement?(submarine, ["A1", "B1"])).to be false
     end
   end
 
   describe '#render' do
     it 'prints board to terminal' do
-      
+      expect(@board.render).to eq("  1 2 3 4\nA . . . .\nB . . . .\nC . . . .\nD . . . .\n")
+      expect(@board.render(true)).to eq("  1 2 3 4\nA S S S .\nB . . . .\nC . . . .\nD . . . .\n")
     end
   end
 end

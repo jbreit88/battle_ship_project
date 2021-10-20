@@ -81,8 +81,21 @@ class Board
     # end
   end
 
-  def render
-    
+  def render(arg = false)
+    if arg == false
+      board_render = "  1 2 3 4\n" +
+      "A #{@cells["A1"].render} #{@cells["A2"].render} #{@cells["A3"].render} #{@cells["A4"].render}\n" +
+      "B #{@cells["B1"].render} #{@cells["B2"].render} #{@cells["B3"].render} #{@cells["B4"].render}\n" +
+      "C #{@cells["C1"].render} #{@cells["C2"].render} #{@cells["C3"].render} #{@cells["C4"].render}\n" +
+      "D #{@cells["D1"].render} #{@cells["D2"].render} #{@cells["D3"].render} #{@cells["D4"].render}\n"
+    elsif arg == true
+      board_render =  "  1 2 3 4\n" +
+      "A #{@cells["A1"].render(arg)} #{@cells["A2"].render(arg)} #{@cells["A3"].render(arg)} #{@cells["A4"].render(arg)}\n" +
+      "B #{@cells["B1"].render(arg)} #{@cells["B2"].render(arg)} #{@cells["B3"].render(arg)} #{@cells["B4"].render(arg)}\n" +
+      "C #{@cells["C1"].render(arg)} #{@cells["C2"].render(arg)} #{@cells["C3"].render(arg)} #{@cells["C4"].render(arg)}\n" +
+      "D #{@cells["D1"].render(arg)} #{@cells["D2"].render(arg)} #{@cells["D3"].render(arg)} #{@cells["D4"].render(arg)}\n"
+    end
+    board_render
   end
 end
 #ceck consecutive letters if ship is placed veritcally

@@ -34,7 +34,11 @@ class Cell
 
   def render(show_ship=false)# default parameter? https://medium.com/podiihq/ruby-parameters-c178fdcd1f4e
     if show_ship == true
-      @render = "S"
+      if empty? == true
+        @render
+      elsif empty? == false
+        @render = "S"
+      end
     elsif fired_upon? == false
       @render
     elsif fired_upon? == true && empty? == true
