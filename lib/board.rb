@@ -26,54 +26,67 @@ class Board
     @cells.keys.include?(coordinate)
   end
 
-  def numbers_consecutive_up?(coordinates)
-    numbers = []
-    coordinates.each_with_index do |item, index|
-      if (index %2 == 1)
-        numbers << item
-      end
+  def valid_placement?(ship, cords)
+    return false if cords.length != ship.length
+
+    if descending_letters(cords) || descending_numbers(cords)
+      false
+    elsif ascending_letters(cords) && ascending_numbers(cords)
+      false
+    elsif ascending_letters(cords) == false && single_letter(cords) == false
+      false
+    elsif ascending_numbers(cords) == false && single_number(cords) == false
+      false
+    elsif ascending_letters(cords) && single_number(cords)
+      true
+    elsif ascending_numbers(cords) && single_letter(cords)
+      true
     end
-    numbers.map(&:to_i).each_cons(2).all? {|a, b| b == a + 1 }# returns boolean value
   end
 
-  def numbers_consecutive_down?(coordinates)
-    numbers = []
-    coordinates.each_with_index do |item, index|
-      if (index %2 == 1)
-        numbers << item
-      end
+  def cords_to_integers(cords) #deletes letters from coordiantes, returns array of integers
+    integers = []
+    cords.each do |cord|
+      integers << cord.slice(1).to_i
     end
-    # require "pry"; binding.pry
-    numbers.map(&:to_i).each_cons(2).all? {|a, b| b == a - 1 }# returns boolean value
+    integers
   end
 
-  def letters_consecutive?(coordinates)
+  def cord_letters_to_integers(cords) #deletes integers from coordinates, returns array of .ord
     letters = []
-    coordinates.each_with_index do |item, index|
-      if (index %2 == 0)
-        letters << item
-      end
+    cords.each do |cord|
+      letters << cord.slice(0).ord
     end
-    letters.map(&:to_i).each_cons(2).all? {|a, b| b == a + 1 }
+    letters
   end
 
+  def single_letter(cords)
+    cord_letters_to_integers(cords).uniq.length == 1
+  end
 
+  def single_number(cords)
+    cords_to_integers(cords).uniq.length == 1
+  end
 
+  def ascending_letters(cords) #check if letters are ascending in order
+    letter_list = cord_letters_to_integers(cords)
+    letter_list.first + (letter_list.length - 1) == letter_list.last
+  end
 
-  # def valid_placement?(ship, coordinates)
-  #   require "pry"; binding.pry
-  #   chars_array = coordinates.map(&:chars)
-  #   if coordinates.length == ship.length
-  #     chars_array.map.first.all?
-  #
-  #     end
-  #   end
-  #
-  #
-  #
-  #
-  #
-  # end
+  def descending_letters(cords)
+    letter_list = cord_letters_to_integers(cords)
+    letter_list.first - (letter_list.length - 1) == letter_list.last
+  end
+
+  def ascending_numbers(cords)
+    number_list = cords_to_integers(cords)
+    number_list.first + (number_list.length - 1) == number_list.last
+  end
+  
+  def descending_numbers(cords)
+    number_list = cords_to_integers(cords)
+    number_list.first - (number_list.length - 1) == number_list.last
+  end 
 
   def place(ship, coordinates)
     # if valid_placement?(ship, coordinates)
@@ -98,5 +111,3 @@ class Board
     board_render
   end
 end
-#ceck consecutive letters if ship is placed veritcally
-#check consecutive numbers if ship is placed laterally
