@@ -91,7 +91,6 @@ RSpec.describe Board do
       expect(@board.cells["A3"].ship).to eq(@cruiser)
 
       expect(cell_3.ship).to eq(cell_1.ship)
-
     end
   end
 
@@ -103,7 +102,9 @@ RSpec.describe Board do
   end
 
   describe '#render' do
+
     it 'prints board to terminal' do
+      require "pry"; binding.pry
       expect(@board.render).to eq("  1 2 3 4\nA . . . .\nB . . . .\nC . . . .\nD . . . .\n")
     end
 
@@ -112,7 +113,7 @@ RSpec.describe Board do
     end
 
     it 'shows a cell with a miss' do
-      
+
     end
 
     it 'shows a cell with a hit' do
