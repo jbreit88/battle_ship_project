@@ -68,14 +68,21 @@ class Board
   def valid_placement?(ship, cords)
     return false if cords.length != ship.length
 
-    if descending_letters(cords) == true || descending_numbers(cords) == true
-      false
-    elsif ascending_letters(cords) == false || ascending_numbers(cords) == false
-      false
-    else
+    # if descending_letters(cords) == true || descending_numbers(cords) == true
+    #   false
+    # elsif ascending_letters(cords) == true && ascending_numbers(cords) == true
+    #   false
+    # elsif ascending_letters(cords) == false
+    #   false
+    # elsif ascending_numbers(cords) == false
+    #   false
+    if ascending_letters(cords) == true && single_number(cords) == true
       true
+    elsif ascending_numbers(cords) == true && single_letter(cords) == true 
+      true
+    else
+      false
     end
-
   end
 
   def cords_to_integers(cords) #deletes letters from coordiantes, returns array of integers
@@ -94,8 +101,12 @@ class Board
     letters
   end
 
-  def single_letter_use(cords)
-    cord_letters_to_integers(cords).uniq.length
+  def single_letter(cords)
+    cord_letters_to_integers(cords).uniq.length == 1
+  end
+
+  def single_number(cords)
+    cords_to_integers(cords).uniq.length == 1
   end
 
   def ascending_letters(cords) #check if letters are ascending in order
@@ -107,22 +118,22 @@ class Board
 
   def descending_letters(cords)
     letter_list = cord_letters_to_integers(cords)
-    if letter_list.first - (letter_list.length - 1) == letter_list.last
+    if letter_list.first - (letter_list.length - 1) != letter_list.last
       false
     end
   end
 
   def ascending_numbers(cords)
     number_list = cords_to_integers(cords)
-    if number_list.first - (number_list.length - 1) != number_list.last
+    if number_list.first + (number_list.length - 1) != number_list.last
       false
     end
   end
 
   def descending_numbers(cords)
     number_list = cords_to_integers(cords)
-    if number_list.first - (number_list.length - 1) == number_list.last
-      true
+    if number_list.first - (number_list.length - 1) != number_list.last
+      false
     end
   end
 end
