@@ -28,6 +28,7 @@ class Board
 
   def valid_placement?(ship, cords)
     return false if cords.length != ship.length
+    return false if overlapping_ships(cords) == true
 
     if descending_letters(cords) || descending_numbers(cords)
       false
@@ -42,6 +43,10 @@ class Board
     elsif ascending_numbers(cords) && single_letter(cords)
       true
     end
+  end
+
+  def overlapping_ships(cords)
+    cords.any? {|cord| @cells[cord].empty? == false}
   end
 
   def cords_to_integers(cords) #deletes letters from coordiantes, returns array of integers
@@ -82,11 +87,11 @@ class Board
     number_list = cords_to_integers(cords)
     number_list.first + (number_list.length - 1) == number_list.last
   end
-  
+
   def descending_numbers(cords)
     number_list = cords_to_integers(cords)
     number_list.first - (number_list.length - 1) == number_list.last
-  end 
+  end
 
   def place(ship, coordinates)
     # if valid_placement?(ship, coordinates)

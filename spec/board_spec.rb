@@ -104,7 +104,7 @@ describe 'validating ship placements' do
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
     submarine = Ship.new("Submarine", 2)
-   
+
     expect(board.valid_placement?(cruiser, ["A1", "A2", "A4"])).to be(false)
     expect(board.valid_placement?(submarine, ["A1", "C1"])).to be(false)
     expect(board.valid_placement?(cruiser, ["A3", "A2", "A1"])).to be(false)
@@ -155,8 +155,15 @@ RSpec.describe Board do
   end
 
   describe '#overlapping ships' do
-    xit 'verifies no cell can hold two ships' do
+    it 'checks if coordinates have ship' do
+      expect(@board.overlapping_ships(["A1", "B1", "C1"])).to eq true
+      expect(@board.overlapping_ships(["B2", "B3", "B4"])).to eq false
+    end
+
+    it 'verifies no cell can hold two ships' do
       submarine = Ship.new("Submarine", 2)
+
+      expect(@board.cells["A1"].empty?).to eq false
       expect(@board.valid_placement?(submarine, ["A1", "B1"])).to be false
     end
   end
@@ -164,7 +171,6 @@ RSpec.describe Board do
   describe '#render' do
 
     it 'prints board to terminal' do
-      require "pry"; binding.pry
       expect(@board.render).to eq("  1 2 3 4\nA . . . .\nB . . . .\nC . . . .\nD . . . .\n")
     end
 
