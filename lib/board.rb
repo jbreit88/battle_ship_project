@@ -26,62 +26,21 @@ class Board
     @cells.keys.include?(coordinate)
   end
 
-  # def numbers_consecutive_up?(coordinates)
-  #   numbers = []
-  #   coordinates.each_with_index do |item, index|
-  #     if (index %2 == 1)
-  #       numbers << item
-  #     end
-  #   end
-  #   numbers.map(&:to_i).each_cons(2).all? {|a, b| b == a + 1 }# returns boolean value
-  # end
-
-  # def numbers_consecutive_down?(coordinates)
-  #   numbers = []
-  #   coordinates.each_with_index do |item, index|
-  #     if (index %2 == 1)
-  #       numbers << item
-  #     end
-  #   end
-  #   # require "pry"; binding.pry
-  #   numbers.map(&:to_i).each_cons(2).all? {|a, b| b == a - 1 }# returns boolean value
-  # end
-  #.slice(1).to_i
-  #.slice(0).ord also gives integer for number
-  # def letters_consecutive?(coordinates)
-  #   letters = []
-  #   coordinates.each_with_index do |item, index|
-  #     if (index %2 == 0)
-  #       letters << item
-  #     end
-  #   end
-  #   letters.map(&:to_i).each_cons(2).all? {|a, b| b == a + 1 }
-  # end
-
-  # def valid_placement?(ship, coordinates)
-  #   up = numbers_consecutive_up?(coordinates)
-  #   down = numbers_consecutive_down?(coordinates)
-  #   coordinates.length == ship.length && up == false
-  #   #down == true inverted coordinates should pass
-  # end
-
   def valid_placement?(ship, cords)
     return false if cords.length != ship.length
 
-    # if descending_letters(cords) == true || descending_numbers(cords) == true
-    #   false
-    # elsif ascending_letters(cords) == true && ascending_numbers(cords) == true
-    #   false
-    # elsif ascending_letters(cords) == false
-    #   false
-    # elsif ascending_numbers(cords) == false
-    #   false
-    if ascending_letters(cords) == true && single_number(cords) == true
-      true
-    elsif ascending_numbers(cords) == true && single_letter(cords) == true 
-      true
-    else
+    if descending_letters(cords) == true || descending_numbers(cords) == true
       false
+    elsif ascending_letters(cords) == true && ascending_numbers(cords) == true
+      false
+    elsif ascending_letters(cords) == false && single_letter(cords) == false
+      false
+    elsif ascending_numbers(cords) == false && single_number(cords) == false
+      false
+    elsif ascending_letters(cords) == true && single_number(cords) == true
+      true
+    elsif ascending_numbers(cords) == true && single_letter(cords) == true
+      true
     end
   end
 
@@ -111,29 +70,21 @@ class Board
 
   def ascending_letters(cords) #check if letters are ascending in order
     letter_list = cord_letters_to_integers(cords)
-    if letter_list.first + (letter_list.length - 1) != letter_list.last
-      false
-    end
+    letter_list.first + (letter_list.length - 1) == letter_list.last
   end
 
   def descending_letters(cords)
     letter_list = cord_letters_to_integers(cords)
-    if letter_list.first - (letter_list.length - 1) != letter_list.last
-      false
-    end
+    letter_list.first - (letter_list.length - 1) == letter_list.last
   end
 
   def ascending_numbers(cords)
     number_list = cords_to_integers(cords)
-    if number_list.first + (number_list.length - 1) != number_list.last
-      false
-    end
+    number_list.first + (number_list.length - 1) == number_list.last
   end
 
   def descending_numbers(cords)
     number_list = cords_to_integers(cords)
-    if number_list.first - (number_list.length - 1) != number_list.last
-      false
-    end
+    number_list.first - (number_list.length - 1) == number_list.last
   end
 end

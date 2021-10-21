@@ -42,11 +42,51 @@ describe 'validating ship placements' do
     expect(board.cord_letters_to_integers(["A1", "A2"])).to eq([65, 65])
   end
 
-  xit '#single_letter_use' do
+  it '#single_letter_use' do
     board = Board.new
 
-    expect(board.single_letter_use(["A1", "A2"])).to eq(true)
-    expect(board.single_letter_use(["A1", "B1"])).to eq(false)
+    expect(board.single_letter(["A1", "A2"])).to eq(true)
+    expect(board.single_letter(["A1", "B1"])).to eq(false)
+  end
+
+  describe '#single_number' do
+    it 'checks if coordinates only have one numer for each value' do
+      board = Board.new
+
+      expect(board.single_number(["A1", "B1", "C1"])).to be true
+      expect(board.single_number(["B1", "C1", "D1"])).to be true
+    end
+  end
+
+  it '#ascending numbers' do
+    board = Board.new
+
+    expect(board.ascending_numbers(["A1", "A2", "A3"])).to be(true)
+    expect(board.ascending_numbers(["A3", "A2", "A1"])).to be(false)
+  end
+
+  it '#descending numbers' do
+    board = Board.new
+
+    expect(board.descending_numbers(["A1", "A2", "A3"])).to be(false)
+    expect(board.descending_numbers(["A3", "A2", "A1"])).to be(true)
+  end
+
+  describe '#ascending_letters' do
+    it 'checks if letters are in order up' do
+      board = Board.new
+
+      expect(board.ascending_letters(["A1", "B1", "C1"])).to eq true
+      expect(board.ascending_letters(["B1", "C1", "D1"])).to eq true
+    end
+  end
+
+  describe '#descending_letters' do
+    it 'checks if letters are in order down' do
+      board = Board.new
+
+      expect(board.descending_letters(["D1", "C1", "B1"])).to eq true
+    end
   end
 
   it 'can validate the length is equal to coordinates' do
