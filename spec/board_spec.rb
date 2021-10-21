@@ -4,20 +4,20 @@ require './lib/ship'
 require './lib/cell'
 
 describe Board do
-  xit 'exists' do
+  it 'exists' do
     board = Board.new
 
     expect(board).to be_an_instance_of(Board)
   end
 
-  xit 'attributes' do
+  it 'attributes' do
     board = Board.new
 
     expect(board.cells).to be_a(Hash)
     expect(board.cells.keys.length).to eq(16)
   end
 
-  xit 'can validate coordinates' do
+  it 'can validate coordinates' do
     board = Board.new
 
     expect(board.valid_coordinate?("A1")).to be(true)
@@ -79,7 +79,7 @@ RSpec.describe Board do
   end
 
   describe '#place' do
-    xit 'puts ship on board' do
+    it 'puts ship on board' do
       cell_1 = @board.cells["A1"]
       cell_2 = @board.cells["A2"]
       cell_3 = @board.cells["A3"]
@@ -104,9 +104,23 @@ RSpec.describe Board do
 
   describe '#render' do
     it 'prints board to terminal' do
-      require "pry"; binding.pry
       expect(@board.render).to eq("  1 2 3 4\nA . . . .\nB . . . .\nC . . . .\nD . . . .\n")
+    end
+
+    it 'shows which cells contain a ship' do
       expect(@board.render(true)).to eq("  1 2 3 4\nA S S S .\nB . . . .\nC . . . .\nD . . . .\n")
+    end
+
+    it 'shows a cell with a miss' do
+      
+    end
+
+    it 'shows a cell with a hit' do
+
+    end
+
+    it 'shows a ship that has been sunk' do
+
     end
   end
 end
