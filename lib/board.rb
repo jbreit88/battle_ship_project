@@ -29,17 +29,17 @@ class Board
   def valid_placement?(ship, cords)
     return false if cords.length != ship.length
 
-    if descending_letters(cords) == true || descending_numbers(cords) == true
+    if descending_letters(cords) || descending_numbers(cords)
       false
-    elsif ascending_letters(cords) == true && ascending_numbers(cords) == true
+    elsif ascending_letters(cords) && ascending_numbers(cords)
       false
     elsif ascending_letters(cords) == false && single_letter(cords) == false
       false
     elsif ascending_numbers(cords) == false && single_number(cords) == false
       false
-    elsif ascending_letters(cords) == true && single_number(cords) == true
+    elsif ascending_letters(cords) && single_number(cords)
       true
-    elsif ascending_numbers(cords) == true && single_letter(cords) == true
+    elsif ascending_numbers(cords) && single_letter(cords)
       true
     end
   end
