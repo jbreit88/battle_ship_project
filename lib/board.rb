@@ -82,9 +82,32 @@ class Board
     number_list = cords_to_integers(cords)
     number_list.first + (number_list.length - 1) == number_list.last
   end
-
+  
   def descending_numbers(cords)
     number_list = cords_to_integers(cords)
     number_list.first - (number_list.length - 1) == number_list.last
+  end 
+
+  def place(ship, coordinates)
+    # if valid_placement?(ship, coordinates)
+      coordinates.map { |coordinate| @cells[coordinate].place_ship(ship)}
+    # end
+  end
+
+  def render(arg = false)
+    if arg == false
+      board_render = "  1 2 3 4\n" +
+      "A #{@cells["A1"].render(arg)} #{@cells["A2"].render(arg)} #{@cells["A3"].render(arg)} #{@cells["A4"].render(arg)}\n" +
+      "B #{@cells["B1"].render(arg)} #{@cells["B2"].render(arg)} #{@cells["B3"].render(arg)} #{@cells["B4"].render(arg)}\n" +
+      "C #{@cells["C1"].render(arg)} #{@cells["C2"].render(arg)} #{@cells["C3"].render(arg)} #{@cells["C4"].render(arg)}\n" +
+      "D #{@cells["D1"].render(arg)} #{@cells["D2"].render(arg)} #{@cells["D3"].render(arg)} #{@cells["D4"].render(arg)}\n"
+    elsif arg == true
+      board_render =  "  1 2 3 4\n" +
+      "A #{@cells["A1"].render(arg)} #{@cells["A2"].render(arg)} #{@cells["A3"].render(arg)} #{@cells["A4"].render(arg)}\n" +
+      "B #{@cells["B1"].render(arg)} #{@cells["B2"].render(arg)} #{@cells["B3"].render(arg)} #{@cells["B4"].render(arg)}\n" +
+      "C #{@cells["C1"].render(arg)} #{@cells["C2"].render(arg)} #{@cells["C3"].render(arg)} #{@cells["C4"].render(arg)}\n" +
+      "D #{@cells["D1"].render(arg)} #{@cells["D2"].render(arg)} #{@cells["D3"].render(arg)} #{@cells["D4"].render(arg)}\n"
+    end
+    board_render
   end
 end
