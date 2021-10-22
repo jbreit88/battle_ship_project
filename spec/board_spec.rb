@@ -179,15 +179,26 @@ RSpec.describe Board do
     end
 
     it 'shows a cell with a miss' do
+      cell_1 = @board.cells["C3"]
+      cell_1.fire_upon
 
+        expect(@board.render).to eq("  1 2 3 4\nA . . . .\nB . . . .\nC . . M .\nD . . . .\n")
     end
 
     it 'shows a cell with a hit' do
+      cell_1 = @board.cells["A1"]
+      cell_1.fire_upon
 
+        expect(@board.render).to eq("  1 2 3 4\nA H . . .\nB . . . .\nC . . . .\nD . . . .\n")
     end
 
-    it 'shows a ship that has been sunk' do
+    it 'shows a ship that has been sunk' do # Need to turn all linked cells to X when a ship sinks.
+      @cruiser.hit
+      @cruiser.hit
+      cell_1 = @board.cells["A1"]
+      cell_1.fire_upon
 
+        expect(@board.render).to eq("  1 2 3 4\nA X . . .\nB . . . .\nC . . . .\nD . . . .\n")
     end
   end
 end
