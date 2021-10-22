@@ -94,9 +94,9 @@ class Board
   end
 
   def place(ship, coordinates)
-    # if valid_placement?(ship, coordinates)
+    if valid_placement?(ship, coordinates)
       coordinates.map { |coordinate| @cells[coordinate].place_ship(ship)}
-    # end
+    end
   end
 
   def render(arg = false)

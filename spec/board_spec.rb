@@ -198,7 +198,11 @@ RSpec.describe Board do
       cell_1 = @board.cells["A1"]
       cell_1.fire_upon
 
-        expect(@board.render).to eq("  1 2 3 4\nA X . . .\nB . . . .\nC . . . .\nD . . . .\n")
+      expect(@board.render).to eq("  1 2 3 4\nA X . . .\nB . . . .\nC . . . .\nD . . . .\n")
+
+      submarine = Ship.new("Submarine", 2)
+      @board.place(submarine, ["B1", "C1"])
+      expect(@board.render(true)).to eq("  1 2 3 4\nA S S S .\nB S . . .\nC S . . .\nD . . . .\n")
     end
   end
 end
