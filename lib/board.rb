@@ -38,6 +38,8 @@ class Board
       false
     elsif ascending_numbers(cords) == false && single_number(cords) == false
       false
+    elsif cord_to_ranges(cords) > 1
+      false
     elsif ascending_letters(cords) && single_number(cords)
       true
     elsif ascending_numbers(cords) && single_letter(cords)
@@ -49,7 +51,7 @@ class Board
     cords.any? {|cord| @cells[cord].empty? == false}
   end
 
-  def cords_to_integers(cords) #deletes letters from coordiantes, returns array of integers
+  def cords_to_integers(cords) #deletes letters from coordiantes, returns cords of integers
     integers = []
     cords.each do |cord|
       integers << cord.slice(1).to_i
@@ -57,7 +59,7 @@ class Board
     integers
   end
 
-  def cord_letters_to_integers(cords) #deletes integers from coordinates, returns array of .ord
+  def cord_letters_to_integers(cords) #deletes integers from coordinates, returns cords of .ord
     letters = []
     cords.each do |cord|
       letters << cord.slice(0).ord
@@ -91,6 +93,24 @@ class Board
   def descending_numbers(cords)
     number_list = cords_to_integers(cords)
     number_list.first - (number_list.length - 1) == number_list.last
+  end
+
+  def cord_to_ranges(cords)
+    numbers = cords_to_integers(cords)
+    numbers.compact.uniq.sort
+    ranges = []
+    if !numbers.empty?
+      left, right = numbers.first, nil
+      numbers.each do |obj|
+        if right && obj != right.succ
+          ranges << Range.new(left,right)
+          left = obj
+        end
+        right = obj
+      end
+      ranges << Range.new(left,right)
+    end
+    ranges.uniq.length
   end
 
   def place(ship, coordinates)
