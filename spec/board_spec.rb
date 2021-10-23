@@ -115,6 +115,8 @@ describe 'validating ship placements' do
 
     expect(board.valid_placement?(cruiser, ["A1", "A2"])).to be(false)
     expect(board.valid_placement?(submarine, ["A2", "A3", "A4"])).to be(false)
+    expect(board.valid_placement?(submarine, ["A1", "A2"])).to be(true)
+    expect(board.valid_placement?(cruiser, ["A2", "A3", "A4"])).to be(true)
   end
 
   it 'can check coordinates are consecutive' do
