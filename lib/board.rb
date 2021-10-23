@@ -101,12 +101,12 @@ class Board
     ranges = []
     if !numbers.empty?
       left, right = numbers.first, nil
-      numbers.each do |obj|
-        if right && obj != right.succ
+      numbers.each do |num|
+        if right && num != right.succ
           ranges << Range.new(left,right)
-          left = obj
+          left = num
         end
-        right = obj
+        right = num
       end
       ranges << Range.new(left,right)
     end
