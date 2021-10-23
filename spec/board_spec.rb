@@ -35,6 +35,7 @@ describe 'validating ship placements' do
 
     expect(board.cords_to_integers(["A1", "A2"])).to be_an(Array)
     expect(board.cords_to_integers(["A1", "A2"])).to eq([1, 2])
+    expect(board.cords_to_integers(["A1", "A1", "A3"])).to eq([1, 1, 3])
   end
 
   it '#cord_letters_to_integers' do
@@ -43,6 +44,7 @@ describe 'validating ship placements' do
     expect(board.cord_letters_to_integers(["A1", "A2"])).to be_an(Array)
     expect(board.cord_letters_to_integers(["A1", "A2"])).to eq([65, 65])
   end
+
 
   it '#single_letter_use' do
     board = Board.new
@@ -74,6 +76,20 @@ describe 'validating ship placements' do
     expect(board.descending_numbers(["A3", "A2", "A1"])).to be(true)
   end
 
+  it 'can turn numbers from cords into an invalid range' do
+    board = Board.new
+
+    expect(board.cord_to_ranges(["A1", "A1", "A3"])).to eq(2)
+    expect(board.cord_to_ranges(["B3", "B3", "D4"])).to eq(2)
+  end
+
+  it 'can turn numbers from cords into a valid range' do
+    board = Board.new
+
+    expect(board.cord_to_ranges(["A1", "B1", "C1"])).to eq(1)
+    expect(board.cord_to_ranges(["A1", "A2", "A3"])).to eq(1)
+  end
+
   describe '#ascending_letters' do
     it 'checks if letters are in order up' do
       board = Board.new
@@ -88,6 +104,7 @@ describe 'validating ship placements' do
       board = Board.new
 
       expect(board.descending_letters(["D1", "C1", "B1"])).to eq true
+      expect(board.descending_letters(["C1", "B1", "A1"])).to eq true
     end
   end
 
@@ -98,6 +115,8 @@ describe 'validating ship placements' do
 
     expect(board.valid_placement?(cruiser, ["A1", "A2"])).to be(false)
     expect(board.valid_placement?(submarine, ["A2", "A3", "A4"])).to be(false)
+    expect(board.valid_placement?(submarine, ["A1", "A2"])).to be(true)
+    expect(board.valid_placement?(cruiser, ["A2", "A3", "A4"])).to be(true)
   end
 
   it 'can check coordinates are consecutive' do
@@ -118,6 +137,8 @@ describe 'validating ship placements' do
 
     expect(board.valid_placement?(cruiser, ["A1", "B2", "C3"])).to be(false)
     expect(board.valid_placement?(submarine, ["C2", "D3"])).to be(false)
+    expect(board.valid_placement?(cruiser, ["A1", "B1", "A3"])).to be(false)
+    expect(board.valid_placement?(cruiser, ["A1", "A1", "A3"])).to be(false)
   end
 
   it 'can validate possible ship placements' do
