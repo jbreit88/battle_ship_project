@@ -26,6 +26,18 @@ class Computer
         break
       end
     end
+
+    loop do 
+    submarine_cords = []
+    until submarine_cords.length == @submarine.length do
+        submarine_cords << @comp_board.cells.keys.sample
+      end
+
+      if @comp_board.valid_placement?(@submarine, submarine_cords)
+        @comp_board.place(@submarine, submarine_cords)
+        break
+      end
+    end
     #
     # loop do
     #   submarine_cords = []
