@@ -45,7 +45,6 @@ describe 'validating ship placements' do
     expect(board.cord_letters_to_integers(["A1", "A2"])).to eq([65, 65])
   end
 
-
   it '#single_letter_use' do
     board = Board.new
 
@@ -53,13 +52,11 @@ describe 'validating ship placements' do
     expect(board.single_letter(["A1", "B1"])).to eq(false)
   end
 
-  describe '#single_number' do
-    it 'checks if coordinates only have one numer for each value' do
-      board = Board.new
+  it 'checks if coordinates only have one numer for each value' do
+    board = Board.new
 
-      expect(board.single_number(["A1", "B1", "C1"])).to be true
-      expect(board.single_number(["B1", "C1", "D1"])).to be true
-    end
+    expect(board.single_number(["A1", "B1", "C1"])).to be true
+    expect(board.single_number(["B1", "C1", "D1"])).to be true
   end
 
   it '#ascending numbers' do
@@ -86,32 +83,53 @@ describe 'validating ship placements' do
   it 'can turn numbers from cords into a valid range' do
     board = Board.new
 
+    expect(board.letters_to_ranges(["B3", "C3", "D3"])).to eq(1)
+    expect(board.letters_to_ranges(["A2", "B2", "C2"])).to eq(1)
+    expect(board.letters_to_ranges(["A2", "A3", "A4"])).to eq(1)
+    expect(board.letters_to_ranges(["D1", "D2", "D3"])).to eq(1)
+  end
+
+  it 'can turn letters from cords into an invalid range' do
+    board = Board.new
+
+    expect(board.letters_to_ranges(["B3", "B3", "D4"])).to eq(2)
+    expect(board.letters_to_ranges(["B2", "B2", "D2"])).to eq(2)
+    expect(board.letters_to_ranges(["A3", "A3", "C3"])).to eq(2)
+    expect(board.letters_to_ranges(["A1", "A1", "C1"])).to eq(2)
+  end
+
+  it 'can turn letters from cords into a valid range' do
+    board = Board.new
+
+    expect(board.letters_to_ranges(["B3", "C3", "D3"])).to eq(1)
+    expect(board.letters_to_ranges(["A2", "B2", "C2"])).to eq(1)
+    expect(board.letters_to_ranges(["A2", "A3", "A4"])).to eq(1)
+    expect(board.letters_to_ranges(["D1", "D2", "D3"])).to eq(1)
+  end
+
+  it 'can turn numbers from cords into a valid range' do
+    board = Board.new
+
     expect(board.cord_to_ranges(["A1", "B1", "C1"])).to eq(1)
     expect(board.cord_to_ranges(["A1", "A2", "A3"])).to eq(1)
   end
 
-  describe '#ascending_letters' do
-    it 'checks if letters are in order up' do
-      board = Board.new
+  it 'checks if letters are in order up' do
+    board = Board.new
 
-      expect(board.ascending_letters(["A1", "B1", "C1"])).to eq true
-      expect(board.ascending_letters(["B1", "C1", "D1"])).to eq true
-    end
+    expect(board.ascending_letters(["A1", "B1", "C1"])).to eq true
+    expect(board.ascending_letters(["B1", "C1", "D1"])).to eq true
   end
 
-  describe '#descending_letters' do
-    it 'checks if letters are in order down' do
-      board = Board.new
+  it 'checks if letters are in order down' do
+    board = Board.new
 
-      expect(board.descending_letters(["D1", "C1", "B1"])).to eq true
-      expect(board.descending_letters(["C1", "B1", "A1"])).to eq true
-    end
+    expect(board.descending_letters(["D1", "C1", "B1"])).to eq true
+    expect(board.descending_letters(["C1", "B1", "A1"])).to eq true
   end
 
   it 'can validate the length is equal to coordinates' do
     board = Board.new
-    cruiser = Ship.new("Cruiser", 3)
-    submarine = Ship.new("Submarine", 2)
 
     expect(board.valid_placement?(cruiser, ["A1", "A2"])).to be(false)
     expect(board.valid_placement?(submarine, ["A2", "A3", "A4"])).to be(false)
@@ -121,19 +139,18 @@ describe 'validating ship placements' do
 
   it 'can check coordinates are consecutive' do
     board = Board.new
-    cruiser = Ship.new("Cruiser", 3)
-    submarine = Ship.new("Submarine", 2)
 
     expect(board.valid_placement?(cruiser, ["A1", "A2", "A4"])).to be(false)
     expect(board.valid_placement?(submarine, ["A1", "C1"])).to be(false)
     expect(board.valid_placement?(cruiser, ["A3", "A2", "A1"])).to be(false)
     expect(board.valid_placement?(submarine, ["C1", "B1"])).to be(false)
+    expect(board.valid_placement?(submarine, ["B2", "B2", "D2"])).to be(false)
+    expect(board.valid_placement?(submarine, ["A3", "C3", "C3"])).to be(false)
+    expect(board.valid_placement?(submarine, ["A1", "A1", "A1"])).to be(false)
   end
 
   it 'cannot place ships diagonally' do
     board = Board.new
-    cruiser = Ship.new("Cruiser", 3)
-    submarine = Ship.new("Submarine", 2)
 
     expect(board.valid_placement?(cruiser, ["A1", "B2", "C3"])).to be(false)
     expect(board.valid_placement?(submarine, ["C2", "D3"])).to be(false)
@@ -143,9 +160,7 @@ describe 'validating ship placements' do
 
   it 'can validate possible ship placements' do
     board = Board.new
-    cruiser = Ship.new("Cruiser", 3)
-    submarine = Ship.new("Submarine", 2)
-
+  
     expect(board.valid_placement?(cruiser, ["A1", "B2"])).to be(false)
     expect(board.valid_placement?(cruiser, ["B1", "C1", "D1"])).to be(true)
     expect(board.valid_placement?(submarine, ["A1", "A2"])).to be(true)

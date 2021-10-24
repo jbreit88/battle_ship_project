@@ -38,7 +38,7 @@ class Board
       false
     elsif ascending_numbers(cords) == false && single_number(cords) == false
       false
-    elsif cord_to_ranges(cords) > 1
+    elsif cord_to_ranges(cords) > 1 || letters_to_ranges(cords) > 1
       false
     elsif ascending_letters(cords) && single_number(cords)
       true
@@ -107,6 +107,24 @@ class Board
           left = num
         end
         right = num
+      end
+      ranges << Range.new(left,right)
+    end
+    ranges.uniq.length
+  end
+
+  def letters_to_ranges(cords)
+    letters = cord_letters_to_integers(cords)
+    letters.compact.uniq.sort
+    ranges = []
+    if !letters.empty?
+      left, right = letters.first, nil
+      letters.each do |let|
+        if right && let != right.succ
+          ranges << Range.new(left,right)
+          left = let
+        end
+        right = let
       end
       ranges << Range.new(left,right)
     end
