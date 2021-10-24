@@ -10,6 +10,10 @@ describe Computer do #John's Tests
   let(:cruiser) {cruiser = Ship.new("Cruiser", 3)}
   let(:submarine) {submarine = Ship.new("Submarine", 2)}
 
+  it 'exists' do
+    expect(computer).to be_an_instance_of(Computer)
+  end
+
   it '#comp_ship_place' do
     computer.comp_ship_place
 
