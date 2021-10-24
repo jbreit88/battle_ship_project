@@ -27,7 +27,7 @@ class Computer
       end
     end
 
-    loop do 
+    loop do
     submarine_cords = []
     until submarine_cords.length == @submarine.length do
         submarine_cords << @comp_board.cells.keys.sample
@@ -38,18 +38,6 @@ class Computer
         break
       end
     end
-    #
-    # loop do
-    #   submarine_cords = []
-    #   (cpu_submarine.length).times do
-    #     submarine_cords << @comp_board.cells.keys.sample
-    #   end
-    #
-    #   # if @comp_board.valid_placement?(cpu_cruiser, submarine_cords)
-    #   if @comp_board.place(cpu_submarine, submarine_cords) != nil
-    #     break
-    #   end
-    # end
   end
 
   def cpu_display_board
