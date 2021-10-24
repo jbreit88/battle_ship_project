@@ -51,6 +51,12 @@ class Board
     cords.any? {|cord| @cells[cord].empty? == false}
   end
 
+  def place(ship, coordinates)
+    if valid_placement?(ship, coordinates)
+      coordinates.map { |coordinate| @cells[coordinate].place_ship(ship)}
+    end
+  end
+
   def cords_to_integers(cords) #deletes letters from coordiantes, returns cords of integers
     integers = []
     cords.each do |cord|
@@ -111,12 +117,6 @@ class Board
       ranges << Range.new(left,right)
     end
     ranges.uniq.length
-  end
-
-  def place(ship, coordinates)
-    if valid_placement?(ship, coordinates)
-      coordinates.map { |coordinate| @cells[coordinate].place_ship(ship)}
-    end
   end
 
   def render(arg = false)
