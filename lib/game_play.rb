@@ -1,10 +1,41 @@
+require "./lib/ship"
+require "./lib/cell"
+require "./lib/board"
+require "./lib/computer"
+require "./lib/player"
+
 class GamePlay
 
+  def game_menu
+     puts "Welcome to...."
+     sleep(1.5)
+     puts " ______       ______  _________  _________   |         ______   ______   |     |  _________    _______"
+     puts "|      |     /     |      |          |       |        |        |         |     |      |       |      |"
+     puts "|______|    /______|      |          |       |        |_____   |______   |_____|      |       |______|"
+     puts "|      |   /       |      |          |       |        |               |  |     |      |       |"
+     puts "|______|  /        |      |          |       |______  |______   ______|  |     |  ____|____   |"
+     puts "___________________________________________________________________________________________________________"
 
-  def start_game
+     puts "Enter p to play. Enter q to quit."
+     player_input = gets.chomp.downcase
 
-  end
+     until ["p", "q"].include?(player_input)
+       puts "Not a valid selection, Please try again:"
+       player_input = gets.chomp.downcase
+     end
 
+     if player_input == "p"
+       start_game
+     elsif player_input == "q"
+       puts "Thank you for playing!"
+     end
+   end
+
+   def build_game
+     #Thinking we will need to put comp_place-ship and player_place_ship into the board.rb class
+     #Call comp_place_ship and player_ship_place in this method.
+     #need to find a way to randomize the coordinates and still adehre to valid placement method
+   end
 
   def comp_ship_place
 
