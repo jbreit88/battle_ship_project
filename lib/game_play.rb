@@ -48,10 +48,33 @@ class GamePlay
     @computer.comp_ship_place
     sleep(1.5)
     puts "Computer ship placement complete."
+    sleep(1.5)
   end
 
   def player_place_ships
-    print "Please place your ships on the board."
+    puts "You now need to lay out your two ships."
+    sleep(1.5)
+    puts "The Cruiser is three units long and the Submarine is two units long."
+    sleep(1.5)
+    print @player.player_board.render
+    puts "Enter your desired coordinates for the Cruiser (3 spaces):"
+    @player.player_ship_place_cruiser
+    sleep(1.5)
+    puts "Enter your desired coordinates for the Submarine (2 spaces):"
+    @player.player_ship_place_submarine
+  end
+
+  def turn
+    until @player.all_sunk? == true || @computer.all_sunk? == true
+      puts "#{"=" * 10} COMPUTER BOARD #{"=" * 10}"
+      print @computer.cpu_display_board
+      puts "#{"=" * 10} COMPUTER BOARD #{"=" * 10}"
+      print @player.player_board_render # Make sure this is rendering ship locations AND all other information.
+      sleep(1.5)
+      puts "Player shot. Input cell to be fired upon:"
+      @computer.player_shot
+
+    end
   end
 
   def results
