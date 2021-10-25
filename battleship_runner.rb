@@ -15,8 +15,6 @@ def start
     new_game.turn
     new_game.end_game
   end
-
 end
-
 
 start
