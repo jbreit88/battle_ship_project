@@ -11,6 +11,7 @@ def start
   new_game.game_menu
   new_game.computer_place_ships
   new_game.player_place_ships
+  new_game.turn
 
 
 end
