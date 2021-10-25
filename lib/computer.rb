@@ -4,37 +4,37 @@ require "./lib/board"
 require "./lib/game_play"
 
 class Computer
-  attr_reader :cruiser,
-              :submarine,
+  attr_reader :comp_cruiser,
+              :comp_submarine,
               :comp_board
 
   def initialize
     @comp_board = Board.new
-    @cruiser = Ship.new("Cruiser", 3)
-    @submarine = Ship.new("Submarine", 2)
+    @comp_cruiser = Ship.new("Cruiser", 3)
+    @comp_submarine = Ship.new("Submarine", 2)
   end
 
   def comp_ship_place
     loop do
     cruiser_cords = []
-    until cruiser_cords.length == @cruiser.length do
+    until cruiser_cords.length == @comp_cruiser.length do
         cruiser_cords << @comp_board.cells.keys.sample
       end
 
-      if @comp_board.valid_placement?(@cruiser, cruiser_cords)
-        @comp_board.place(@cruiser, cruiser_cords)
+      if @comp_board.valid_placement?(@comp_cruiser, cruiser_cords)
+        @comp_board.place(@comp_cruiser, cruiser_cords)
         break
       end
     end
 
     loop do
     submarine_cords = []
-    until submarine_cords.length == @submarine.length do
+    until submarine_cords.length == @comp_submarine.length do
         submarine_cords << @comp_board.cells.keys.sample
       end
 
-      if @comp_board.valid_placement?(@submarine, submarine_cords)
-        @comp_board.place(@submarine, submarine_cords)
+      if @comp_board.valid_placement?(@comp_submarine, submarine_cords)
+        @comp_board.place(@comp_submarine, submarine_cords)
         break
       end
     end
@@ -45,8 +45,6 @@ class Computer
   end
 
   def player_shot
-    puts "Input cell to be fired upon:"
-
     answer = $stdin.gets.chomp.upcase
 
     until @comp_board.cells.keys.include?(answer) && @comp_board.cells[answer].fired_upon? == false
@@ -63,6 +61,33 @@ class Computer
       puts "#{answer} is a hit!"
     end
     print @comp_board.render
+  end
+
+  def player_shot_test(coord)
+
+    until @comp_board.cells.keys.include?(coord) && @comp_board.cells[coord].fired_upon? == false
+      puts "Not a valid selection, Please try again:"
+      return "Not a valid selection, Please try again:"
+    end
+
+    @comp_board.cells[coord].fire_upon
+    if @comp_board.cells[coord].render == "M"
+      puts "#{coord} is a miss!"
+    elsif @comp_board.cells[coord].render == "X"
+      puts "You sunk my #{@comp_board.cells[coord].ship.name}!"
+    elsif @comp_board.cells[coord].render == "H"
+      puts "#{coord} is a hit!"
+    end
+    print @comp_board.render
+  end
+
+  def all_sunk?
+    all_sunk = nil
+    if @comp_cruiser.sunk? == true && @comp_submarine.sunk? == true
+      all_sunk = true
+    else
+      all_sunk = false
+    end
   end
 
 end

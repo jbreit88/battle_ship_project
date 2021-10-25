@@ -131,14 +131,11 @@ describe 'validating ship placements' do
   end
 
   it 'can validate possible ship placements' do
-<<<<<<< HEAD
-=======
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
     submarine = Ship.new("Submarine", 2)
 
     expect(board.valid_placement?(cruiser, ["A1", "A3"])).to be(false)
->>>>>>> 47079588032a55f80b968c8392c766239b9a2272
     expect(board.valid_placement?(cruiser, ["A1", "B2"])).to be(false)
     expect(board.valid_placement?(cruiser, ["B1", "C1", "D1"])).to be(true)
     expect(board.valid_placement?(submarine, ["A1", "A2"])).to be(true)
@@ -214,7 +211,9 @@ RSpec.describe Board do
       cell_1.fire_upon
 
       expect(@board.render).to eq("  1 2 3 4\nA X . . .\nB . . . .\nC . . . .\nD . . . .\n")
+    end
 
+    it 'shows submarine placement' do
       submarine = Ship.new("Submarine", 2)
       @board.place(submarine, ["B1", "C1"])
       expect(@board.render(true)).to eq("  1 2 3 4\nA S S S .\nB S . . .\nC S . . .\nD . . . .\n")

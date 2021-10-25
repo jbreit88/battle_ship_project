@@ -47,8 +47,8 @@ class Board
     end
   end
 
-  def overlapping_ships(cords)
-    cords.any? {|cord| @cells[cord].empty? == false}
+  def overlapping_ships(cords) # This breaks if use number outside range. # Pass ship and coord
+    cords.any? {|cord| @cells[cord].empty? == false} # try .ship? instead of .empty? #def contain_ship?(ship, coord)
   end
 
   def place(ship, coordinates)
