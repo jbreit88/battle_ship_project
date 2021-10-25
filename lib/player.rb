@@ -40,7 +40,7 @@ class Player
         @player_board.place(@player_submarine, player_input_2)
         puts "You placed your ship at #{player_input_2}."
         sleep(1.5)
-        puts "#{@player_board.render(true)}"
+        # puts "#{@player_board.render(true)}"
         break
       end
     end
@@ -56,6 +56,7 @@ class Player
     if @player_board.cells[coordinate].fired_upon? == false
       @player_board.cells[coordinate].fire_upon
       puts "The computer fired at cell #{coordinate}."
+      sleep(1.5)
     end
 
     if @player_board.cells[coordinate].render == "M"
