@@ -69,6 +69,20 @@ class Player
     return coordinate
   end
 
+  def comp_shot_test(coord)
+    if @player_board.cells[coord].fired_upon? == false
+      @player_board.cells[coord].fire_upon
+    end
+
+    if @player_board.cells[coord].render == "M"
+      return "#{coord} is a miss!"
+    elsif @player_board.cells[coord].render == "X"
+      return "You sunk my #{@player_board.cells[coord].ship.name}!"
+    elsif @player_board.cells[coord].render == "H"
+      return "#{coord} is a hit!"
+    end
+  end
+
   def player_board_render
     @player_board.render(true)
   end
@@ -77,6 +91,8 @@ class Player
     all_sunk = nil
     if @player_cruiser.sunk? == true && @player_submarine.sunk? == true
       all_sunk = true
+    else
+      all_sunk = false
     end
   end
 end
