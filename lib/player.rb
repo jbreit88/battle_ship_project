@@ -1,11 +1,38 @@
 class Player
 
+  attr_reader :cruiser,
+              :submarine,
+              :player_board
+
   def initialize
-
     @player_board = Board.new
-
+    @cruiser = Ship.new("Cruiser", 3)
+    @submarine = Ship.new("Submarine", 2)
   end
 
+  def comp_shot
+    coordinate = @player_board.cells.keys.sample
+
+    until @player_board.cells[coordinate].fired_upon? == false
+      coordinate = @player_board.cells.keys.sample
+    end
+
+    if @player_board.cells[coordinate].fired_upon? == false
+      @player_board.cells[coordinate].fire_upon
+      puts "The computer fired at cell #{coordinate}."
+    end
+
+    if @player_board.cells[coordinate].render == "M"
+      puts "#{coordinate} is a miss!"
+    elsif @player_board.cells[coordinate].render == "X"
+      puts "You sunk my #{@player_board.cells[coordinate].ship.name}!"
+    elsif @player_board.cells[coordinate].render == "H"
+      puts "#{coordinate} is a hit!"
+    end
+
+    print @player_board.render
+
+  end
 
   # def player_set_board_render # Shows board that player has set
   #   puts "Show ship placement? Y or N"
