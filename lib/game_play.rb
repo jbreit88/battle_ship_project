@@ -1,6 +1,8 @@
-require "./lib/ship"
-require "./lib/cell"
+require './lib/ship'
 require "./lib/board"
+require './lib/cell'
+require './lib/computer'
+require './lib/player'
 
 class GamePlay
   attr_reader :cruiser,
@@ -11,6 +13,8 @@ class GamePlay
     @comp_board = Board.new
     @cruiser = Ship.new("Cruiser", 3)
     @submarine = Ship.new("Submarine", 2)
+    @computer = Computer.new
+    @player = Player.new
   end
 
   def game_menu
@@ -32,7 +36,7 @@ class GamePlay
     end
 
     if player_input == "p"
-      start_game
+      puts "Game On!"
     elsif player_input == "q"
       puts "Thank you for playing!"
       sleep(1.0)
@@ -42,28 +46,35 @@ class GamePlay
     end
   end
 
-  def start_game
-
+  def computer_place_ships
+    puts "The computer will now place their ships."
+    @computer.comp_ship_place
+    sleep(1.5)
+    puts "Computer ship placement complete."
+    print @computer.comp_board.render
   end
 
-  def build_game
-    #Thinking we will need to put comp_place-ship and player_place_ship into the board.rb class
-    #Call comp_place_ship and player_ship_place in this method.
-    #need to find a way to randomize the coordinates and still adehre to valid placement method
+  def player_place_ships
+    print "Please place your ships on the board."
   end
+  # def build_game
+  #   #Thinking we will need to put comp_place-ship and player_place_ship into the board.rb class
+  #   #Call comp_place_ship and player_ship_place in this method.
+  #   #need to find a way to randomize the coordinates and still adehre to valid placement method
+  # end
 
-  def comp_ship_place
-    loop do
-    cruiser_cords = []
-    until cruiser_cords.length == @cruiser.length do
-        cruiser_cords << @comp_board.cells.keys.sample
-      end
-
-      if @comp_board.valid_placement?(@cruiser, cruiser_cords)
-        @comp_board.place(@cruiser, cruiser_cords)
-        break
-      end
-    end
+  # def comp_ship_place
+  #   loop do
+  #   cruiser_cords = []
+  #   until cruiser_cords.length == @cruiser.length do
+  #       cruiser_cords << @comp_board.cells.keys.sample
+  #     end
+  #
+  #     if @comp_board.valid_placement?(@cruiser, cruiser_cords)
+  #       @comp_board.place(@cruiser, cruiser_cords)
+  #       break
+  #     end
+  #   end
     #
     # loop do
     #   submarine_cords = []
@@ -76,12 +87,7 @@ class GamePlay
     #     break
     #   end
     # end
-  end
-
-  def player_ship_place
-
-  end
-
+  # end
 
 
   def results
