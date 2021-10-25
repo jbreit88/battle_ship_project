@@ -9,6 +9,7 @@ def start
   new_game = GamePlay.new
 
   new_game.game_menu
+  new_game.start_game
 
 
 end
