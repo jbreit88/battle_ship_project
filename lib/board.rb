@@ -47,7 +47,7 @@ class Board
     end
   end
 
-  def overlapping_ships(cords)
+  def overlapping_ships(cords) # This breaks if use number outside range.
     cords.any? {|cord| @cells[cord].empty? == false}
   end
 
