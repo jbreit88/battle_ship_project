@@ -65,9 +65,4 @@ class Computer
     print @comp_board.render
   end
 
-  def computer_shot
-  end
-
-  def results
-  end
 end
