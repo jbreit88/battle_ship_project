@@ -29,12 +29,20 @@ describe Computer do
     end
   end
 
-  it '#comp_ship_place' do
-    computer.comp_ship_place
+  describe '#comp_ship_place' do
+    it 'puts two ships randomly on the board' do
+      computer.comp_ship_place
 
-    expect(computer.comp_board.cells.count { |key, value| value.ship != nil }).to eq(5)
+      expect(computer.comp_board.cells.count { |key, value| value.ship != nil }).to eq(5)
 
-    expect(computer.comp_board.render(true).chars.count("S")).to eq 5
+      expect(computer.comp_board.render(true).chars.count("S")).to eq 5
+    end
+  end
+
+  describe '#cpu_display_board' do
+    it 'renders computer board' do
+      expect(computer.cpu_display_board).to eq("  1 2 3 4\nA . . . .\nB . . . .\nC . . . .\nD . . . .\n")
+    end
   end
 
   describe '#player_shot user input' do
@@ -80,8 +88,6 @@ describe Computer do
       expect(computer.comp_board.render).to eq("  1 2 3 4\nA . X X X\nB . . . .\nC . . . .\nD . . . .\n")
     end
   end
-
-
 
   describe '#player_shot_test no user input' do
     it 'misses at A1' do
@@ -151,7 +157,7 @@ describe Computer do
       expect(computer.all_sunk?).to be true
     end
 
-    it 'returns false if cruiser has health left' do
+    it 'returns false if cruiser has health' do
       computer.comp_board.place(cruiser, ["A1", "A2", "A3"])
       computer.comp_board.place(submarine, ["B2", "C2"])
 
@@ -167,7 +173,7 @@ describe Computer do
       expect(computer.all_sunk?).to be false
     end
 
-    it 'returns false if submarine has health left' do
+    it 'returns false if submarine has health' do
       computer.comp_board.place(cruiser, ["A1", "A2", "A3"])
       computer.comp_board.place(submarine, ["B2", "C2"])
 

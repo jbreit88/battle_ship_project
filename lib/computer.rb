@@ -1,7 +1,6 @@
 require "./lib/ship"
 require "./lib/cell"
 require "./lib/board"
-require "./lib/game_play"
 
 class Computer
   attr_reader :comp_cruiser,

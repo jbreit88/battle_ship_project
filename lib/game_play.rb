@@ -67,7 +67,8 @@ class GamePlay
   end
 
   def turn
-    until @player.all_sunk? == true || @computer.all_sunk? == true
+    # until @player.all_sunk? == true || @computer.all_sunk? == true
+    loop do
       puts "These are the boards:"
       sleep(1.5)
       puts "#{"=" * 10} COMPUTER BOARD #{"=" * 10}"
@@ -77,40 +78,21 @@ class GamePlay
       sleep(2.0)
       puts "Player shot. Input cell to be fired upon:"
       @computer.player_shot
+      break if check_end_game?
       sleep(1.5)
       puts "Computer is choosing point of attack."
       sleep(1.5)
       @player.comp_shot
+      break if check_end_game?
     end
   end
 
+  def check_end_game?
+    @computer.all_sunk? || @player.all_sunk?
+  end
+
   def end_game
-    if @computer.all_sunk? && @player.all_sunk?
-      puts "Ending boards are:"
-      puts "#{"=" * 10} COMPUTER BOARD #{"=" * 10}"
-      print @computer.cpu_display_board
-      puts "#{"=" * 10} PLAYER BOARD #{"=" * 10}"
-      print @player.player_board_render
-      sleep(1.5)
-      puts "It's a draw. Would you like to play again? Y or N"
-      player_input = gets.chomp.downcase
-
-      until ["y", "n"].include?(player_input)
-        puts "Not a valid selection, Please try again:"
-        player_input = gets.chomp.downcase
-      end
-
-      if player_input == "y"
-        puts "Let's try it again!"
-      elsif player_input == "n"
-        puts "Thank you for playing!"
-        sleep(1.5)
-        puts "Goodbye!"
-        sleep(1.5)
-        exit(true)
-      end
-
-    elsif @computer.all_sunk? && @player.all_sunk? == false
+    if @computer.all_sunk? && @player.all_sunk? == false
       puts "Ending boards are:"
       puts "#{"=" * 10} COMPUTER BOARD #{"=" * 10}"
       print @computer.cpu_display_board
@@ -137,7 +119,6 @@ class GamePlay
         sleep(1.5)
         exit(true)
       end
-
 
     elsif @player.all_sunk? && @computer.all_sunk? == false
       puts "Ending boards are:"
