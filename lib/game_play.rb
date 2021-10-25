@@ -35,7 +35,15 @@ class GamePlay
       start_game
     elsif player_input == "q"
       puts "Thank you for playing!"
+      sleep(1.0)
+      puts "Goodbye!"
+      sleep(1.5)
+      exit(true)
     end
+  end
+
+  def start_game
+
   end
 
   def build_game
