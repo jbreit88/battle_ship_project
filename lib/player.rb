@@ -4,23 +4,18 @@ require "./lib/cell"
 
 class Player
 
-  attr_reader :cruiser,
-              :submarine,
+  attr_reader :player_cruiser,
+              :player_submarine,
               :player_board
+
   def initialize
     @player_board = Board.new
     @player_cruiser = Ship.new("Cruiser", 3)
     @player_submarine = Ship.new("Submarine", 2)
   end
 
-  def player_ship_place
-    puts "I have laid out my ships on the grid."
-    puts "You now need to lay out your two ships."
-    puts "The Cruiser is three units long and the Submarine is two units long."
-    puts "  1 2 3 4\nA . . . .\nB . . . .\nC . . . .\nD . . . .\n"
-    puts "Enter the squares for the Cruiser (3 spaces):"
+  def player_ship_place_cruiser
     player_input = gets.chomp.to_s.upcase.split
-
     loop do
       if @player_board.valid_placement?(@player_cruiser, player_input) == false
         puts "Those are invalid coordinates. Please try again:"
@@ -28,14 +23,15 @@ class Player
       elsif @player_board.valid_placement?(@player_cruiser, player_input)
         @player_board.place(@player_cruiser, player_input)
         puts "You placed your ship at #{player_input}."
+        sleep(1.5)
         puts "#{@player_board.render(true)}"
         break
       end
     end
+  end
 
-    puts "Enter the squares for the Submarine (2 spaces):"
+  def player_ship_place_submarine
     player_input_2 = gets.chomp.to_s.upcase.split
-
     loop do
       if @player_board.valid_placement?(@player_submarine, player_input_2) == false
         puts "Those are invalid coordinates. Please try again:"
@@ -43,10 +39,12 @@ class Player
       elsif @player_board.valid_placement?(@player_submarine, player_input_2)
         @player_board.place(@player_submarine, player_input_2)
         puts "You placed your ship at #{player_input_2}."
+        sleep(1.5)
         puts "#{@player_board.render(true)}"
         break
       end
     end
+  end
 
   def comp_shot
     coordinate = @player_board.cells.keys.sample
@@ -67,9 +65,17 @@ class Player
     elsif @player_board.cells[coordinate].render == "H"
       puts "#{coordinate} is a hit!"
     end
+    return coordinate
   end
 
   def player_board_render
     @player_board.render(true)
+  end
+
+  def all_sunk?
+    all_sunk = nil
+    if @player_cruiser.sunk? == true && @player_submarine.sunk? == true
+      all_sunk = true
+    end
   end
 end
