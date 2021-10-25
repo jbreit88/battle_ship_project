@@ -3,26 +3,32 @@ require './lib/ship'
 require "./lib/board"
 require './lib/cell'
 require './lib/computer'
+require './lib/player'
 
 describe Computer do #John's Tests
 
   let(:computer) {Computer.new}
   let(:cruiser) {cruiser = Ship.new("Cruiser", 3)}
   let(:submarine) {submarine = Ship.new("Submarine", 2)}
-<<<<<<< HEAD
-=======
+
   # let(:cpu) {board = Board.new}
->>>>>>> 47079588032a55f80b968c8392c766239b9a2272
+
 
   it '#comp_ship_place' do
     computer.comp_ship_place
 
-<<<<<<< HEAD
     expect(computer.comp_board.cells.count { |key, value| value.ship != nil }).to eq(5)
   end
-end
-=======
-    expect(computer.comp_board.cells.count { |key, value| value.ship != nil }).to eq(3)
+
+  describe '#player_shot' do
+    it 'fires upon user chosen cell' do
+      computer.comp_board.place(cruiser, ["A2", "A3", "A4"])
+      computer.player_shot # If at A1
+      # computer.player_shot # If at A1 a second time renders "Invalid selection" message.
+      expect(computer.comp_board.render).to eq("  1 2 3 4\nA M . . .\nB . . . .\nC . . . .\nD . . . .\n")
+
+      computer.player_shot # If at A3
+      expect(computer.comp_board.render).to eq("  1 2 3 4\nA M . H .\nB . . . .\nC . . . .\nD . . . .\n")
+    end
   end
-end 
->>>>>>> 47079588032a55f80b968c8392c766239b9a2272
+end
