@@ -11,8 +11,4 @@ describe Player do
   it 'exists' do
     expect(player).to be_an_instance_of(Player)
   end
-
-  xit 'attributes' do
-    expect(player.name).to eq()
-  end
 end
