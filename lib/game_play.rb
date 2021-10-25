@@ -10,9 +10,6 @@ class GamePlay
               :comp_board
 
   def initialize
-    @comp_board = Board.new
-    @cruiser = Ship.new("Cruiser", 3)
-    @submarine = Ship.new("Submarine", 2)
     @computer = Computer.new
     @player = Player.new
   end
@@ -51,44 +48,11 @@ class GamePlay
     @computer.comp_ship_place
     sleep(1.5)
     puts "Computer ship placement complete."
-    print @computer.comp_board.render
   end
 
   def player_place_ships
     print "Please place your ships on the board."
   end
-  # def build_game
-  #   #Thinking we will need to put comp_place-ship and player_place_ship into the board.rb class
-  #   #Call comp_place_ship and player_ship_place in this method.
-  #   #need to find a way to randomize the coordinates and still adehre to valid placement method
-  # end
-
-  # def comp_ship_place
-  #   loop do
-  #   cruiser_cords = []
-  #   until cruiser_cords.length == @cruiser.length do
-  #       cruiser_cords << @comp_board.cells.keys.sample
-  #     end
-  #
-  #     if @comp_board.valid_placement?(@cruiser, cruiser_cords)
-  #       @comp_board.place(@cruiser, cruiser_cords)
-  #       break
-  #     end
-  #   end
-    #
-    # loop do
-    #   submarine_cords = []
-    #   (cpu_submarine.length).times do
-    #     submarine_cords << @comp_board.cells.keys.sample
-    #   end
-    #
-    #   # if @comp_board.valid_placement?(cpu_cruiser, submarine_cords)
-    #   if @comp_board.place(cpu_submarine, submarine_cords) != nil
-    #     break
-    #   end
-    # end
-  # end
-
 
   def results
 
@@ -98,6 +62,3 @@ class GamePlay
 
   end
 end
-
-# game = GamePlay.new
-# game.game_menu

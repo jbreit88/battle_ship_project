@@ -5,14 +5,15 @@ require './lib/cell'
 require './lib/computer'
 require './lib/player'
 
-describe Computer do #John's Tests
+describe Computer do
 
   let(:computer) {Computer.new}
   let(:cruiser) {cruiser = Ship.new("Cruiser", 3)}
   let(:submarine) {submarine = Ship.new("Submarine", 2)}
 
-  # let(:cpu) {board = Board.new}
-
+  it 'exists' do
+    expect(computer).to be_an_instance_of(Computer)
+  end
 
   it '#comp_ship_place' do
     computer.comp_ship_place
@@ -26,7 +27,6 @@ describe Computer do #John's Tests
       computer.player_shot # If at A1
       # computer.player_shot # If at A1 a second time renders "Invalid selection" message.
       expect(computer.comp_board.render).to eq("  1 2 3 4\nA M . . .\nB . . . .\nC . . . .\nD . . . .\n")
-
     end
 
     xit 'hits at A3' do
@@ -55,7 +55,7 @@ describe Computer do #John's Tests
       expect(computer.comp_board.render).to eq("  1 2 3 4\nA M H H .\nB M M M .\nC M M M .\nD M M M .\n")
     end
 
-    it 'shows a sunk ship' do # Input A2, A3, A4
+    xit 'shows a sunk ship' do # Input A2, A3, A4
       computer.comp_board.place(cruiser, ["A2", "A3", "A4"])
       computer.player_shot
       computer.player_shot

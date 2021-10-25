@@ -1,14 +1,52 @@
+require './lib/board'
+require "./lib/ship"
+require "./lib/cell"
+
 class Player
 
   attr_reader :cruiser,
               :submarine,
               :player_board
-
   def initialize
     @player_board = Board.new
-    @cruiser = Ship.new("Cruiser", 3)
-    @submarine = Ship.new("Submarine", 2)
+    @player_cruiser = Ship.new("Cruiser", 3)
+    @player_submarine = Ship.new("Submarine", 2)
   end
+
+  def player_ship_place
+    puts "I have laid out my ships on the grid."
+    puts "You now need to lay out your two ships."
+    puts "The Cruiser is three units long and the Submarine is two units long."
+    puts "  1 2 3 4\nA . . . .\nB . . . .\nC . . . .\nD . . . .\n"
+    puts "Enter the squares for the Cruiser (3 spaces):"
+    player_input = gets.chomp.to_s.upcase.split
+
+    loop do
+      if @player_board.valid_placement?(@player_cruiser, player_input) == false
+        puts "Those are invalid coordinates. Please try again:"
+        player_input = gets.chomp.to_s.upcase.split
+      elsif @player_board.valid_placement?(@player_cruiser, player_input)
+        @player_board.place(@player_cruiser, player_input)
+        puts "You placed your ship at #{player_input}."
+        puts "#{@player_board.render(true)}"
+        break
+      end
+    end
+
+    puts "Enter the squares for the Submarine (2 spaces):"
+    player_input_2 = gets.chomp.to_s.upcase.split
+
+    loop do
+      if @player_board.valid_placement?(@player_submarine, player_input_2) == false
+        puts "Those are invalid coordinates. Please try again:"
+        player_input_2 = gets.chomp.to_s.upcase.split
+      elsif @player_board.valid_placement?(@player_submarine, player_input_2)
+        @player_board.place(@player_submarine, player_input_2)
+        puts "You placed your ship at #{player_input_2}."
+        puts "#{@player_board.render(true)}"
+        break
+      end
+    end
 
   def comp_shot
     coordinate = @player_board.cells.keys.sample
@@ -29,27 +67,9 @@ class Player
     elsif @player_board.cells[coordinate].render == "H"
       puts "#{coordinate} is a hit!"
     end
-
-    print @player_board.render
   end
 
-  # def player_board_render_ship_location
-  #   puts "Want to remember your ship placement? Y or N"
-  #   answer = gets.chomp.downcase
-  #
-  #   until ["y", "n"].include?(answer)
-  #     puts "Invalid input. Please try again:"
-  #     answer = gets.chomp.downcase
-  #   end
-  # end
-  #
-  # if answer == "y"
-  #   @player_board.render(true)
-  # elsif answer == "n"
-  #   @player_board.render
-  # end
-
   def player_board_render
-    @player_board.render
+    @player_board.render(true)
   end
 end
