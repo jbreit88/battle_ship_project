@@ -48,7 +48,7 @@ class Computer
     puts "Input cell to be fired upon:"
 
     answer = $stdin.gets.chomp.upcase
-require "pry"; binding.pry
+
     until @comp_board.cells.keys.include?(answer) && @comp_board.cells[answer].fired_upon? == false
       puts "Not a valid selection, Please try again:"
       answer = $stdin.gets.chomp.upcase
@@ -58,9 +58,10 @@ require "pry"; binding.pry
     if @comp_board.cells[answer].render == "M"
       puts "#{answer} is a miss!"
     elsif @comp_board.cells[answer].render == "X"
-      puts "You sunk my #{@comp_board.cells[answer].ship}!"
+      puts "You sunk my #{@comp_board.cells[answer].ship.name}!"
     elsif @comp_board.cells[answer].render == "H"
       puts "#{answer} is a hit!"
+    end
     print @comp_board.render
   end
 
