@@ -33,21 +33,21 @@ class Player
     print @player_board.render
   end
 
-  def player_board_render_ship_location
-    puts "Want to remember your ship placement? Y or N"
-    answer = gets.chomp.downcase
-
-    until ["y", "n"].include?(answer)
-      puts "Invalid input. Please try again:"
-      answer = gets.chomp.downcase
-    end
-  end
-
-  if answer == "y"
-    @player_board.render(true)
-  elsif answer == "n"
-    @player_board.render
-  end
+  # def player_board_render_ship_location
+  #   puts "Want to remember your ship placement? Y or N"
+  #   answer = gets.chomp.downcase
+  #
+  #   until ["y", "n"].include?(answer)
+  #     puts "Invalid input. Please try again:"
+  #     answer = gets.chomp.downcase
+  #   end
+  # end
+  #
+  # if answer == "y"
+  #   @player_board.render(true)
+  # elsif answer == "n"
+  #   @player_board.render
+  # end
 
   def player_board_render
     @player_board.render
