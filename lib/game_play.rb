@@ -5,13 +5,14 @@ require "./lib/computer"
 require "./lib/player"
 
 class GamePlay
-
+  
   def game_menu
+
      puts "Welcome to...."
      sleep(1.5)
      puts " ______       ______  _________  _________   |         ______   ______   |     |  _________    _______"
-     puts "|      |     /     |      |          |       |        |        |         |     |      |       |      |"
-     puts "|______|    /______|      |          |       |        |_____   |______   |_____|      |       |______|"
+     puts "|      |     /     |      |          |       |        |        |         |     |      |       |       |"
+     puts "|______|    /______|      |          |       |        |_____   |______   |_____|      |       |_______|"
      puts "|      |   /       |      |          |       |        |               |  |     |      |       |"
      puts "|______|  /        |      |          |       |______  |______   ______|  |     |  ____|____   |"
      puts "___________________________________________________________________________________________________________"
@@ -25,7 +26,7 @@ class GamePlay
      end
 
      if player_input == "p"
-       start_game
+       self.build_game
      elsif player_input == "q"
        puts "Thank you for playing!"
      end
@@ -67,3 +68,6 @@ class GamePlay
   end
 
 end
+
+game = GamePlay.new
+game.game_menu
