@@ -52,10 +52,4 @@ class Player
   def player_board_render
     @player_board.render
   end
-
-
-
-
-
-
 end
