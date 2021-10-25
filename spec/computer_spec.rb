@@ -53,6 +53,18 @@ describe Computer do
       expect(computer.comp_board.render).to eq("  1 2 3 4\nA M . . .\nB . . . .\nC . . . .\nD . . . .\n")
     end
 
+    it 'checks if player shot is logged' do
+      computer = Computer.new
+      answer = "A4"
+      computer.comp_board.place(cruiser, ["A1", "A2", "A3"])
+
+      allow(computer.player_shot).to receive(:gets).and_return("A4\n")
+
+      expect(computer.player_shot).to eq("A4 is a miss!")
+      # expect(player.comp_shot_test("A4")).to eq
+      # expect(player.player_board.cells["A4"].fired_upon?).to be true
+    end
+
     xit 'hits at A3' do
 
       computer.comp_board.place(cruiser, ["A2", "A3", "A4"])

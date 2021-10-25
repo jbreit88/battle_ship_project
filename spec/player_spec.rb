@@ -32,6 +32,16 @@ RSpec.describe Player do
     it 'selects coordinate at random' do
       expect(player.player_board.cells.keys).to include(player.comp_shot)
     end
+
+    it 'checks if computer shot is logged' do
+      player.player_board.place(cruiser, ["A1", "A2", "A3"])
+      shot_1 = double
+      allow(player.player_board.cells.keys.sample).to receive().and_return("A4")
+
+      expect(player.comp_shot).to eq("A4 is a miss!")
+      # expect(player.comp_shot_test("A4")).to eq
+      # expect(player.player_board.cells["A4"].fired_upon?).to be true
+    end
   end
 
   describe '#comp_shot_test' do
