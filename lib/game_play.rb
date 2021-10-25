@@ -74,20 +74,9 @@ class GamePlay
 
   end
 
-  def display_board
 
-  end
-
-  def player_shot
-
-  end
-
-  def computer_shot
-
-  end
 
   def results
-
 
   end
 
