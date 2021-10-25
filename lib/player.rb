@@ -17,7 +17,10 @@ class Player
   def player_ship_place_cruiser
     player_input = gets.chomp.to_s.upcase.split
     loop do
-      if @player_board.valid_placement?(@player_cruiser, player_input) == false
+      if player_input.all? { |cord| player_board.cells.include?(cord)} == false
+        puts "Those are invalid coordinates. Please try again:"
+        player_input = gets.chomp.to_s.upcase.split
+      elsif @player_board.valid_placement?(@player_cruiser, player_input) == false
         puts "Those are invalid coordinates. Please try again:"
         player_input = gets.chomp.to_s.upcase.split
       elsif @player_board.valid_placement?(@player_cruiser, player_input)
@@ -33,7 +36,10 @@ class Player
   def player_ship_place_submarine
     player_input_2 = gets.chomp.to_s.upcase.split
     loop do
-      if @player_board.valid_placement?(@player_submarine, player_input_2) == false
+      if player_input_2.all? { |cord| player_board.cells.include?(cord)} == false
+        puts "Those are invalid coordinates. Please try again:"
+        player_input_2 = gets.chomp.to_s.upcase.split
+      elsif @player_board.valid_placement?(@player_submarine, player_input_2) == false
         puts "Those are invalid coordinates. Please try again:"
         player_input_2 = gets.chomp.to_s.upcase.split
       elsif @player_board.valid_placement?(@player_submarine, player_input_2)
