@@ -65,10 +65,10 @@ class Computer
 
   def player_shot_test(coord)
 
-    # until @comp_board.cells.keys.include?(coord) && @comp_board.cells[coord].fired_upon? == false
-    #   puts "Not a valid selection, Please try again:"
-    #   coord = $stdin.gets.chomp.upcase
-    # end
+    until @comp_board.cells.keys.include?(coord) && @comp_board.cells[coord].fired_upon? == false
+      puts "Not a valid selection, Please try again:"
+      return "Not a valid selection, Please try again:"
+    end
 
     @comp_board.cells[coord].fire_upon
     if @comp_board.cells[coord].render == "M"
@@ -85,6 +85,8 @@ class Computer
     all_sunk = nil
     if @comp_cruiser.sunk? == true && @comp_submarine.sunk? == true
       all_sunk = true
+    else
+      all_sunk = false
     end
   end
 
