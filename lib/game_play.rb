@@ -5,9 +5,9 @@ require './lib/computer'
 require './lib/player'
 
 class GamePlay
-  attr_reader :cruiser,
-              :submarine,
-              :comp_board
+
+  attr_accessor :computer,
+              :player
 
   def initialize
     @computer = Computer.new

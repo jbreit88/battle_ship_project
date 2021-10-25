@@ -63,6 +63,24 @@ class Computer
     print @comp_board.render
   end
 
+  def player_shot_test(coord)
+
+    # until @comp_board.cells.keys.include?(coord) && @comp_board.cells[coord].fired_upon? == false
+    #   puts "Not a valid selection, Please try again:"
+    #   coord = $stdin.gets.chomp.upcase
+    # end
+
+    @comp_board.cells[coord].fire_upon
+    if @comp_board.cells[coord].render == "M"
+      puts "#{coord} is a miss!"
+    elsif @comp_board.cells[coord].render == "X"
+      puts "You sunk my #{@comp_board.cells[coord].ship.name}!"
+    elsif @comp_board.cells[coord].render == "H"
+      puts "#{coord} is a hit!"
+    end
+    print @comp_board.render
+  end
+
   def all_sunk?
     all_sunk = nil
     if @comp_cruiser.sunk? == true && @comp_submarine.sunk? == true

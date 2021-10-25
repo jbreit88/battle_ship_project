@@ -29,6 +29,13 @@ describe Computer do
       expect(computer.comp_board.render).to eq("  1 2 3 4\nA M . . .\nB . . . .\nC . . . .\nD . . . .\n")
     end
 
+    it 'shot test misses at A1' do
+      computer.comp_board.place(cruiser, ["A2", "A3", "A4"])
+      computer.player_shot_test("A1") # If at A1
+      # computer.player_shot # If at A1 a second time renders "Invalid selection" message.
+      expect(computer.comp_board.render).to eq("  1 2 3 4\nA M . . .\nB . . . .\nC . . . .\nD . . . .\n")
+    end
+
     xit 'hits at A3' do
 
       computer.comp_board.place(cruiser, ["A2", "A3", "A4"])
