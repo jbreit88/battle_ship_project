@@ -45,97 +45,54 @@ describe Computer do
     end
   end
 
-  describe '#player_shot user input' do
-    xit 'misses at A1' do
+  describe '#player_input' do
+    it 'checks it gets input' do
+      allow($stdin).to receive(:gets).and_return("a4\n")
+
+      expect(computer.player_input).to eq("A4")
+    end
+  end
+
+  describe '#player_shot' do
+    it 'misses at A1' do
+      allow(computer).to receive(:player_input).and_return("A1")
+
       computer.comp_board.place(cruiser, ["A2", "A3", "A4"])
       computer.player_shot # At user input prompt "A1"
       # computer.player_shot # If at "A1" a second time renders "Invalid selection" message.
       expect(computer.comp_board.render).to eq("  1 2 3 4\nA M . . .\nB . . . .\nC . . . .\nD . . . .\n")
-    end
+      expect(computer.comp_board.cells["A1"].fired_upon?).to be true
 
-    xit 'hits at A3' do
-
-      computer.comp_board.place(cruiser, ["A2", "A3", "A4"])
-      computer.player_shot # At user input prompt "A3"
-
-      expect(computer.comp_board.render).to eq("  1 2 3 4\nA . . H .\nB . . . .\nC . . . .\nD . . . .\n")
-    end
-
-    xit 'renders the board with more data' do # At user input prompts "A1", "B1", "C1", "A2", "B2", "C2", "A3", "B3", "C3", "D1", "D2", "D3"
-      computer.comp_board.place(cruiser, ["A2", "A3", "A4"])
-      computer.player_shot
-      computer.player_shot
-      computer.player_shot
-      computer.player_shot
-      computer.player_shot
-      computer.player_shot
-      computer.player_shot
-      computer.player_shot
-      computer.player_shot
-      computer.player_shot
-      computer.player_shot
-      computer.player_shot
-
-      expect(computer.comp_board.render).to eq("  1 2 3 4\nA M H H .\nB M M M .\nC M M M .\nD M M M .\n")
-    end
-
-    xit 'shows a sunk ship' do # At user input prompt "A2", "A3", "A4"
-      computer.comp_board.place(cruiser, ["A2", "A3", "A4"])
-      computer.player_shot
-      computer.player_shot
-      computer.player_shot
-
-      expect(computer.comp_board.render).to eq("  1 2 3 4\nA . X X X\nB . . . .\nC . . . .\nD . . . .\n")
-    end
-  end
-
-  describe '#player_shot_test no user input' do
-    it 'misses at A1' do
-      computer.comp_board.place(cruiser, ["A2", "A3", "A4"])
-      computer.player_shot_test("A1")
-
-      expect(computer.comp_board.render).to eq("  1 2 3 4\nA M . . .\nB . . . .\nC . . . .\nD . . . .\n")
-    end
-
-    it 'is invalid selection if shoot same cell twice' do
-      computer.comp_board.place(cruiser, ["A2", "A3", "A4"])
-      computer.player_shot_test("A1")
-
-      expect(computer.player_shot_test("A1")).to eq("Not a valid selection, Please try again:")
+      expect(computer.comp_board.cells["A1"].render).to eq("M")
     end
 
     it 'hits at A3' do
+      allow(computer).to receive(:player_input).and_return("A3")
+
       computer.comp_board.place(cruiser, ["A2", "A3", "A4"])
-      computer.player_shot_test("A3")
+
+      computer.player_shot
+
+      expect(computer.comp_board.cells["A3"].fired_upon?).to be true
+
+      expect(computer.comp_board.cells["A3"].render).to eq("H")
 
       expect(computer.comp_board.render).to eq("  1 2 3 4\nA . . H .\nB . . . .\nC . . . .\nD . . . .\n")
     end
 
-    it 'renders the board with more data no user input' do
-      computer.comp_board.place(cruiser, ["A2", "A3", "A4"])
-      computer.player_shot_test("A1")
-      computer.player_shot_test("B1")
-      computer.player_shot_test("C1")
-      computer.player_shot_test("A2")
-      computer.player_shot_test("B2")
-      computer.player_shot_test("C2")
-      computer.player_shot_test("A3")
-      computer.player_shot_test("B3")
-      computer.player_shot_test("C3")
-      computer.player_shot_test("D1")
-      computer.player_shot_test("D2")
-      computer.player_shot_test("D3")
-
-      expect(computer.comp_board.render).to eq("  1 2 3 4\nA M H H .\nB M M M .\nC M M M .\nD M M M .\n")
-    end
-
     it 'renders a sunk ship' do
-      computer.comp_board.place(cruiser, ["A2", "A3", "A4"])
-      computer.player_shot_test("A2")
-      computer.player_shot_test("A3")
-      computer.player_shot_test("A4")
+      allow(computer).to receive(:player_input).and_return("A3")
 
-      expect(computer.comp_board.render).to eq("  1 2 3 4\nA . X X X\nB . . . .\nC . . . .\nD . . . .\n")
+      cruiser.hit
+      cruiser.hit
+
+      computer.comp_board.place(cruiser, ["A2", "A3", "A4"])
+
+      computer.player_shot
+
+      expect(computer.comp_board.cells["A3"].fired_upon?).to be true
+
+      expect(computer.comp_board.render).to eq("  1 2 3 4\nA . . X .\nB . . . .\nC . . . .\nD . . . .\n")
     end
   end
 
