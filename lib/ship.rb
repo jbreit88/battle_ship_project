@@ -25,8 +25,4 @@ class Ship
       @health -= 1
     end
   end
-
-
-
-
 end

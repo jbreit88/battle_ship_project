@@ -74,5 +74,4 @@ class Computer
       all_sunk = false
     end
   end
-
 end
