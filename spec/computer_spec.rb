@@ -54,15 +54,22 @@ describe Computer do
     end
 
     it 'checks if player shot is logged' do
-      computer = Computer.new
-      answer = "A4"
+      allow(computer).to receive(:player_input).and_return("A4")
+
       computer.comp_board.place(cruiser, ["A1", "A2", "A3"])
 
-      allow(computer.player_shot).to receive(:gets).and_return("A4\n")
+      computer.player_shot
 
-      expect(computer.player_shot).to eq("A4 is a miss!")
+      expect(computer.comp_board.cells["A4"].fired_upon?).to be true
+      expect(computer.comp_board.cells["A4"].render).to eq("M")
       # expect(player.comp_shot_test("A4")).to eq
       # expect(player.player_board.cells["A4"].fired_upon?).to be true
+    end
+
+    it 'checks it gets input' do
+      allow($stdin).to receive(:gets).and_return("a4\n")
+
+      expect(computer.player_input).to eq("A4")
     end
 
     xit 'hits at A3' do

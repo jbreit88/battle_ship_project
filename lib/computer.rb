@@ -62,12 +62,17 @@ class Computer
   #   print @comp_board.render
   # end
 
+
+  def player_input
+    $stdin.gets.chomp.upcase
+  end
+
   def player_shot
-    answer = $stdin.gets.chomp.upcase
+    answer = player_input
 
     until @comp_board.cells.keys.include?(answer) && @comp_board.cells[answer].fired_upon? == false
       puts "Not a valid selection, Please try again:"
-      answer = $stdin.gets.chomp.upcase
+      answer = player_input
     end
 
     @comp_board.cells[answer].fire_upon
