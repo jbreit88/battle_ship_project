@@ -17,18 +17,18 @@ class GamePlay
   def game_menu
     puts "Welcome to...."
     sleep(1.5)
-    puts " ______       ______  _________  _________   |         ______   ______   |     |  _________    _______"
-    puts "|      |     /     |      |          |       |        |        |         |     |      |       |      |"
-    puts "|______|    /______|      |          |       |        |_____   |______   |_____|      |       |______|"
-    puts "|      |   /       |      |          |       |        |               |  |     |      |       |"
-    puts "|______|  /        |      |          |       |______  |______   ______|  |     |  ____|____   |"
-    puts "___________________________________________________________________________________________________________"
+    puts "#{"\e[31m#{" ______       ______  _________  _________   |         ______   ______   |     |  _________    _______"}\e[0m"}"
+    puts "#{"\e[33m#{"|      |     /     |      |          |       |        |        |         |     |      |       |      |"}\e[0m"}"
+    puts "#{"\e[32m#{"|______|    /______|      |          |       |        |_____   |______   |_____|      |       |______|"}\e[0m"}"
+    puts "#{"\e[34m#{"|      |   /       |      |          |       |        |               |  |     |      |       |"}\e[0m"}"
+    puts "#{"\e[35m#{"|______|  /        |      |          |       |______  |______   ______|  |     |  ____|____   |"}\e[0m"}"
+    puts "#{"\e[31m#{"_____________________"}\e[0m"}#{"\e[33m#{"_____________________"}\e[0m"}#{"\e[32m#{"_____________________"}\e[0m"}#{"\e[34m#{"_____________________"}\e[0m"}#{"\e[35m#{"_____________________"}\e[0m"}"
 
-    puts "Enter p to play. Enter q to quit."
+    puts "Enter #{"\e[34m#{"P"}\e[0m"} to play. Enter #{"\e[34m#{"Q"}\e[0m"} to quit."
     player_input = gets.chomp.downcase
 
     until ["p", "q"].include?(player_input)
-      puts "Not a valid selection, Please try again:"
+      puts "#{"\e[32m#{"Not a valid selection, Please try again:"}\e[0m"}"
       player_input = gets.chomp.downcase
     end
 
@@ -67,7 +67,8 @@ class GamePlay
   end
 
   def turn
-    until @player.all_sunk? == true || @computer.all_sunk? == true
+    # until @player.all_sunk? == true || @computer.all_sunk? == true
+    loop do
       puts "These are the boards:"
       sleep(1.5)
       puts "#{"=" * 10} COMPUTER BOARD #{"=" * 10}"
@@ -77,40 +78,21 @@ class GamePlay
       sleep(2.0)
       puts "Player shot. Input cell to be fired upon:"
       @computer.player_shot
+      break if check_end_game?
       sleep(1.5)
       puts "Computer is choosing point of attack."
       sleep(1.5)
       @player.comp_shot
+      break if check_end_game?
     end
   end
 
+  def check_end_game?
+    @computer.all_sunk? || @player.all_sunk?
+  end
+
   def end_game
-    if @computer.all_sunk? && @player.all_sunk?
-      puts "Ending boards are:"
-      puts "#{"=" * 10} COMPUTER BOARD #{"=" * 10}"
-      print @computer.cpu_display_board
-      puts "#{"=" * 10} PLAYER BOARD #{"=" * 10}"
-      print @player.player_board_render
-      sleep(1.5)
-      puts "It's a draw. Would you like to play again? Y or N"
-      player_input = gets.chomp.downcase
-
-      until ["y", "n"].include?(player_input)
-        puts "Not a valid selection, Please try again:"
-        player_input = gets.chomp.downcase
-      end
-
-      if player_input == "y"
-        puts "Let's try it again!"
-      elsif player_input == "n"
-        puts "Thank you for playing!"
-        sleep(1.5)
-        puts "Goodbye!"
-        sleep(1.5)
-        exit(true)
-      end
-
-    elsif @computer.all_sunk? && @player.all_sunk? == false
+    if @computer.all_sunk? && @player.all_sunk? == false
       puts "Ending boards are:"
       puts "#{"=" * 10} COMPUTER BOARD #{"=" * 10}"
       print @computer.cpu_display_board
@@ -119,12 +101,12 @@ class GamePlay
       sleep(1.5)
       puts "Congrats! You showed that computer what for!"
       sleep(1.5)
-      puts "Would you like to play again? Y or N"
+      puts "Would you like to play again? #{"\e[34m#{"Y"}\e[0m"} or #{"\e[34m#{"N"}\e[0m"}"
 
       player_input = gets.chomp.downcase
 
       until ["y", "n"].include?(player_input)
-        puts "Not a valid selection, Please try again:"
+        puts "#{"\e[32m#{"Not a valid selection, Please try again:"}\e[0m"}"
         player_input = gets.chomp.downcase
       end
 
@@ -137,7 +119,6 @@ class GamePlay
         sleep(1.5)
         exit(true)
       end
-
 
     elsif @player.all_sunk? && @computer.all_sunk? == false
       puts "Ending boards are:"
@@ -148,12 +129,12 @@ class GamePlay
       sleep(1.5)
       puts "Looks like the computer took it this time."
       sleep(1.5)
-      puts "Would you like to try again? Y or N"
+      puts "Would you like to try again? #{"\e[34m#{"Y"}\e[0m"} or #{"\e[34m#{"N"}\e[0m"}"
 
       player_input = gets.chomp.downcase
 
       until ["y", "n"].include?(player_input)
-        puts "Not a valid selection, Please try again:"
+        puts "#{"\e[32m#{"Not a valid selection, Please try again:"}\e[0m"}"
         player_input = gets.chomp.downcase
       end
 

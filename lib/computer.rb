@@ -51,7 +51,7 @@ class Computer
     answer = player_input
 
     until @comp_board.cells.keys.include?(answer) && @comp_board.cells[answer].fired_upon? == false
-      puts "Not a valid selection, Please try again:"
+      puts "#{"\e[32m#{"Not a valid selection, Please try again:"}\e[0m"}"
       answer = player_input
     end
 

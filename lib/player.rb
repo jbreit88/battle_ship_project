@@ -23,32 +23,30 @@ class Player
 
     loop do
       if @player_board.valid_placement?(@player_cruiser, player_input) == false
-        puts "Those are invalid coordinates. Please try again:"
+        puts "#{"\e[32m#{"Those are invalid coordinates. Please try again:"}\e[0m"}"
         player_input = player_input_method
       elsif @player_board.valid_placement?(@player_cruiser, player_input)
         @player_board.place(@player_cruiser, player_input)
-        puts "You placed your ship at #{player_input}."
+        puts “You placed your ship at #{player_input}."
         sleep(1.5)
         puts "#{@player_board.render(true)}"
         break
       end
     end
-  end
-
+    
   def player_ship_place_submarine
     player_input_2 = player_input_method
     loop do
       if @player_board.valid_placement?(@player_submarine, player_input_2) == false
-        puts "Those are invalid coordinates. Please try again:"
+        puts “Those are invalid coordinates. Please try again:”
         player_input_2 = player_input_method
       elsif @player_board.valid_placement?(@player_submarine, player_input_2)
         @player_board.place(@player_submarine, player_input_2)
-        puts "You placed your ship at #{player_input_2}."
+        puts “You placed your ship at #{player_input_2}.”
         sleep(1.5)
         break
       end
     end
-  end
 
   def computer_input
     @player_board.cells.keys.sample
