@@ -43,26 +43,6 @@ class Computer
     @comp_board.render
   end
 
-  # def player_shot
-  #   answer = $stdin.gets.chomp.upcase
-  #
-  #   until @comp_board.cells.keys.include?(answer) && @comp_board.cells[answer].fired_upon? == false
-  #     puts "Not a valid selection, Please try again:"
-  #     answer = $stdin.gets.chomp.upcase
-  #   end
-  #
-  #   @comp_board.cells[answer].fire_upon
-  #   if @comp_board.cells[answer].render == "M"
-  #     puts "#{answer} is a miss!"
-  #   elsif @comp_board.cells[answer].render == "X"
-  #     puts "You sunk my #{@comp_board.cells[answer].ship.name}!"
-  #   elsif @comp_board.cells[answer].render == "H"
-  #     puts "#{answer} is a hit!"
-  #   end
-  #   print @comp_board.render
-  # end
-
-
   def player_input
     $stdin.gets.chomp.upcase
   end
@@ -82,24 +62,6 @@ class Computer
       puts "You sunk my #{@comp_board.cells[answer].ship.name}!"
     elsif @comp_board.cells[answer].render == "H"
       puts "#{answer} is a hit!"
-    end
-    print @comp_board.render
-  end
-
-  def player_shot_test(coord)
-
-    until @comp_board.cells.keys.include?(coord) && @comp_board.cells[coord].fired_upon? == false
-      puts "Not a valid selection, Please try again:"
-      return "Not a valid selection, Please try again:"
-    end
-
-    @comp_board.cells[coord].fire_upon
-    if @comp_board.cells[coord].render == "M"
-      puts "#{coord} is a miss!"
-    elsif @comp_board.cells[coord].render == "X"
-      puts "You sunk my #{@comp_board.cells[coord].ship.name}!"
-    elsif @comp_board.cells[coord].render == "H"
-      puts "#{coord} is a hit!"
     end
     print @comp_board.render
   end
