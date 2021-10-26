@@ -52,11 +52,11 @@ class Computer
     end
 
     @comp_board.cells[answer].fire_upon
-    if @comp_board.cells[answer].render == "M"
+    if @comp_board.cells[answer].render == "\e[33m#{"M"}\e[0m"
       puts "#{answer} is a miss!"
-    elsif @comp_board.cells[answer].render == "X"
+    elsif @comp_board.cells[answer].render == "\e[31m#{"X"}\e[0m"
       puts "You sunk my #{@comp_board.cells[answer].ship.name}!"
-    elsif @comp_board.cells[answer].render == "H"
+    elsif @comp_board.cells[answer].render == "\e[32m#{"H"}\e[0m"
       puts "#{answer} is a hit!"
     end
     print @comp_board.render

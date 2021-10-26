@@ -64,11 +64,11 @@ class Player
       sleep(1.5)
     end
 
-    if @player_board.cells[coordinate].render == "M"
+    if @player_board.cells[coordinate].render == "\e[33m#{"M"}\e[0m"
       puts "#{coordinate} is a miss!"
-    elsif @player_board.cells[coordinate].render == "X"
+    elsif @player_board.cells[coordinate].render == "\e[31m#{"X"}\e[0m"
       puts "You sunk my #{@player_board.cells[coordinate].ship.name}!"
-    elsif @player_board.cells[coordinate].render == "H"
+    elsif @player_board.cells[coordinate].render == "\e[32m#{"H"}\e[0m"
       puts "#{coordinate} is a hit!"
     end
     return coordinate

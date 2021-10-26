@@ -35,21 +35,21 @@ RSpec.describe Player do
   end
 
   describe '#comp_shot_test' do
-    it 'checks if computer shot is logged' do
+    xit 'checks if computer shot is logged' do
       player.player_board.place(cruiser, ["A1", "A2", "A3"])
 
       expect(player.comp_shot_test("A4")).to eq("A4 is a miss!")
       expect(player.player_board.cells["A4"].fired_upon?).to be true
     end
 
-    it 'checks if computer shot logs hit' do
+    xit 'checks if computer shot logs hit' do
       player.player_board.place(cruiser, ["A1", "A2", "A3"])
 
       expect(player.comp_shot_test("A1")).to eq("A1 is a hit!")
       expect(player.player_board.cells["A1"].fired_upon?).to be true
     end
 
-    it 'checks if computer shot logs sink' do
+    xit 'checks if computer shot logs sink' do
       player.player_board.place(cruiser, ["A1", "A2", "A3"])
       player.comp_shot_test("A2")
       player.comp_shot_test("A3")
@@ -61,7 +61,8 @@ RSpec.describe Player do
 
   describe '#player_board_render' do
     it 'renders player board' do
-      expect(player.player_board_render).to eq("  1 2 3 4\nA . . . .\nB . . . .\nC . . . .\nD . . . .\n")
+      expected = "  1 2 3 4\nA \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m\nB \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m\nC \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m\nD \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m\n"
+      expect(player.player_board_render).to eq(expected)
     end
   end
 
