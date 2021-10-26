@@ -183,25 +183,31 @@ RSpec.describe Board do
   describe '#render' do
 
     it 'prints board to terminal' do
-      expect(@board.render).to eq("  1 2 3 4\nA . . . .\nB . . . .\nC . . . .\nD . . . .\n")
+      expected = "  1 2 3 4\nA \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m\nB \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m\nC \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m\nD \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m\n"
+
+      expect(@board.render).to eq(expected)
     end
 
     it 'shows which cells contain a ship' do
-      expect(@board.render(true)).to eq("  1 2 3 4\nA S S S .\nB . . . .\nC . . . .\nD . . . .\n")
+      expected = "  1 2 3 4\nA \e[34mS\e[0m \e[34mS\e[0m \e[34mS\e[0m \e[35m.\e[0m\nB \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m\nC \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m\nD \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m\n"
+
+      expect(@board.render(true)).to eq(expected)
     end
 
     it 'shows a cell with a miss' do
       cell_1 = @board.cells["C3"]
       cell_1.fire_upon
 
-        expect(@board.render).to eq("  1 2 3 4\nA . . . .\nB . . . .\nC . . M .\nD . . . .\n")
+      expected = "  1 2 3 4\nA \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m\nB \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m\nC \e[35m.\e[0m \e[35m.\e[0m \e[33mM\e[0m \e[35m.\e[0m\nD \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m\n"
+      expect(@board.render).to eq(expected)
     end
 
     it 'shows a cell with a hit' do
       cell_1 = @board.cells["A1"]
       cell_1.fire_upon
 
-        expect(@board.render).to eq("  1 2 3 4\nA H . . .\nB . . . .\nC . . . .\nD . . . .\n")
+        expected = "  1 2 3 4\nA \e[32mH\e[0m \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m\nB \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m\nC \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m\nD \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m\n"
+        expect(@board.render).to eq(expected)
     end
 
     it 'shows a ship that has been sunk' do # Need to turn all linked cells to X when a ship sinks.
@@ -210,13 +216,17 @@ RSpec.describe Board do
       cell_1 = @board.cells["A1"]
       cell_1.fire_upon
 
-      expect(@board.render).to eq("  1 2 3 4\nA X . . .\nB . . . .\nC . . . .\nD . . . .\n")
+      expected = "  1 2 3 4\nA \e[31mX\e[0m \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m\nB \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m\nC \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m\nD \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m\n"
+
+      expect(@board.render).to eq(expected)
     end
 
     it 'shows submarine placement' do
       submarine = Ship.new("Submarine", 2)
       @board.place(submarine, ["B1", "C1"])
-      expect(@board.render(true)).to eq("  1 2 3 4\nA S S S .\nB S . . .\nC S . . .\nD . . . .\n")
+
+      expected = "  1 2 3 4\nA \e[34mS\e[0m \e[34mS\e[0m \e[34mS\e[0m \e[35m.\e[0m\nB \e[34mS\e[0m \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m\nC \e[34mS\e[0m \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m\nD \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m\n"
+      expect(@board.render(true)).to eq(expected)
     end
   end
 end
