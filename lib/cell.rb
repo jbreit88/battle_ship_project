@@ -34,15 +34,15 @@ class Cell
 
   def render(show_ship=false)# default parameter? https://medium.com/podiihq/ruby-parameters-c178fdcd1f4e
     if show_ship == true && empty? == false && fired_upon? == false
-        @render = "S"
+        @render = "\e[34m#{"S"}\e[0m"
     elsif fired_upon? == false
-      @render = "."
+      @render = "\e[35m#{"."}\e[0m"
     elsif fired_upon? == true && empty? == true
-      @render = "M"
+      @render = "\e[33m#{"M"}\e[0m"
     elsif @ship.sunk? == true || nil
-      @render = "X"
+      @render = "\e[31m#{"X"}\e[0m"
     elsif fired_upon? == true && empty? == false && @ship.sunk? == false
-      @render = "H"
+      @render = "\e[32m#{"H"}\e[0m"
     end
   end
 end
