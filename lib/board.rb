@@ -145,7 +145,7 @@ class Board
 
   def render(arg = false)
     if arg == false
-      board_render = "  1 2 3 4\n" +
+      board_render = "  1 2 3 4\n"  +
       "A #{@cells["A1"].render(arg)} #{@cells["A2"].render(arg)} #{@cells["A3"].render(arg)} #{@cells["A4"].render(arg)}\n" +
       "B #{@cells["B1"].render(arg)} #{@cells["B2"].render(arg)} #{@cells["B3"].render(arg)} #{@cells["B4"].render(arg)}\n" +
       "C #{@cells["C1"].render(arg)} #{@cells["C2"].render(arg)} #{@cells["C3"].render(arg)} #{@cells["C4"].render(arg)}\n" +

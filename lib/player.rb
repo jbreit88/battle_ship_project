@@ -18,10 +18,10 @@ class Player
     player_input = gets.chomp.to_s.upcase.split
     loop do
       if player_input.all? { |cord| player_board.cells.include?(cord)} == false
-        puts "Those are invalid coordinates. Please try again:"
+        puts "#{"\e[32m#{"Those are invalid coordinates. Please try again:"}\e[0m"}"
         player_input = gets.chomp.to_s.upcase.split
       elsif @player_board.valid_placement?(@player_cruiser, player_input) == false
-        puts "Those are invalid coordinates. Please try again:"
+        puts "#{"\e[32m#{"Those are invalid coordinates. Please try again:"}\e[0m"}"
         player_input = gets.chomp.to_s.upcase.split
       elsif @player_board.valid_placement?(@player_cruiser, player_input)
         @player_board.place(@player_cruiser, player_input)
@@ -37,10 +37,10 @@ class Player
     player_input_2 = gets.chomp.to_s.upcase.split
     loop do
       if player_input_2.all? { |cord| player_board.cells.include?(cord)} == false
-        puts "Those are invalid coordinates. Please try again:"
+        puts "#{"\e[32m#{"Those are invalid coordinates. Please try again:"}\e[0m"}"
         player_input_2 = gets.chomp.to_s.upcase.split
       elsif @player_board.valid_placement?(@player_submarine, player_input_2) == false
-        puts "Those are invalid coordinates. Please try again:"
+        puts "#{"\e[32m#{"Those are invalid coordinates. Please try again:"}\e[0m"}"
         player_input_2 = gets.chomp.to_s.upcase.split
       elsif @player_board.valid_placement?(@player_submarine, player_input_2)
         @player_board.place(@player_submarine, player_input_2)
@@ -74,19 +74,19 @@ class Player
     return coordinate
   end
 
-  def comp_shot_test(coord)
-    if @player_board.cells[coord].fired_upon? == false
-      @player_board.cells[coord].fire_upon
-    end
-
-    if @player_board.cells[coord].render == "M"
-      return "#{coord} is a miss!"
-    elsif @player_board.cells[coord].render == "X"
-      return "You sunk my #{@player_board.cells[coord].ship.name}!"
-    elsif @player_board.cells[coord].render == "H"
-      return "#{coord} is a hit!"
-    end
-  end
+  # def comp_shot_test(coord)
+  #   if @player_board.cells[coord].fired_upon? == false
+  #     @player_board.cells[coord].fire_upon
+  #   end
+  #
+  #   if @player_board.cells[coord].render == "M"
+  #     return "#{coord} is a miss!"
+  #   elsif @player_board.cells[coord].render == "X"
+  #     return "You sunk my #{@player_board.cells[coord].ship.name}!"
+  #   elsif @player_board.cells[coord].render == "H"
+  #     return "#{coord} is a hit!"
+  #   end
+  # end
 
   def player_board_render
     @player_board.render(true)
