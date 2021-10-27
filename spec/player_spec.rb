@@ -19,12 +19,58 @@ RSpec.describe Player do
       expect(player.player_cruiser).to be_an_instance_of(Ship)
 
       expect(player.player_cruiser.health).to eq 3
+
+      expect(player.player_cruiser.name).to eq "Cruiser"
     end
 
     it 'has a submarine' do
       expect(player.player_submarine).to be_an_instance_of(Ship)
 
       expect(player.player_submarine.health).to eq 2
+
+      expect(player.player_submarine.name).to eq "Submarine"
+    end
+  end
+
+  describe '#player_input_method' do
+    it 'gets user input and alters it' do
+      allow($stdin).to receive(:gets).and_return("a1")
+
+      expect(player.player_input_method).to eq(["A1"])
+    end
+
+    it 'gets multiple coordinates' do
+      allow($stdin).to receive(:gets).and_return("a1 a2")
+
+      expect(player.player_input_method).to eq(["A1", "A2"])
+    end
+  end
+
+  describe '#player_ship_place_cruiser' do
+    it 'places cruiser at coordinates' do
+      allow(player).to receive(:player_input_method).and_return(["A1", "A2", "A3"])
+
+      player.player_ship_place_cruiser
+
+      expect(player.player_board_render).to eq("  1 2 3 4\nA S S S .\nB . . . .\nC . . . .\nD . . . .\n")
+    end
+  end
+
+  describe '#player_ship_place_submarine' do
+    it 'places submarine at coordinates' do
+      allow(player).to receive(:player_input_method).and_return(["B1", "C1"])
+
+      player.player_ship_place_submarine
+
+      expect(player.player_board_render).to eq("  1 2 3 4\nA . . . .\nB S . . .\nC S . . .\nD . . . .\n")
+    end
+  end
+
+  describe '#computer_input' do
+    it 'generates a cell for the computer to fire at' do
+      allow(player.player_board).to receive(:cells).and_return({"A1" => 1})
+
+      expect(player.computer_input).to eq("A1")
     end
   end
 
@@ -32,30 +78,46 @@ RSpec.describe Player do
     it 'selects coordinate at random' do
       expect(player.player_board.cells.keys).to include(player.comp_shot)
     end
-  end
 
-  describe '#comp_shot_test' do
-    xit 'checks if computer shot is logged' do
-      player.player_board.place(cruiser, ["A1", "A2", "A3"])
+    it 'checks if computer shot is logged' do
+      allow(player.player_board).to receive(:cells).and_return({"A1" => Cell.new("A1")})
 
-      expect(player.comp_shot_test("A4")).to eq("A4 is a miss!")
-      expect(player.player_board.cells["A4"].fired_upon?).to be true
+      player.player_board.place(cruiser, ["A2", "A3", "A4"])
+
+      player.comp_shot
+
+      expect(player.player_board.cells["A1"].fired_upon?).to be true
+
+      expect(player.player_board.cells["A1"].render).to eq "M"
     end
 
-    xit 'checks if computer shot logs hit' do
+    it 'checks if computer shot is hit' do
+      allow(player).to receive(:computer_input).and_return(player.player_board.cells.keys[0])
+
       player.player_board.place(cruiser, ["A1", "A2", "A3"])
 
-      expect(player.comp_shot_test("A1")).to eq("A1 is a hit!")
+      player.comp_shot
+
       expect(player.player_board.cells["A1"].fired_upon?).to be true
+
+      expect(player.player_board.cells["A1"].render).to eq "H"
+
+      expect(player.player_board_render).to eq("  1 2 3 4\nA H S S .\nB . . . .\nC . . . .\nD . . . .\n")
     end
 
-    xit 'checks if computer shot logs sink' do
-      player.player_board.place(cruiser, ["A1", "A2", "A3"])
-      player.comp_shot_test("A2")
-      player.comp_shot_test("A3")
+    it 'checks if computer shot is sink' do
+      allow(player).to receive(:computer_input).and_return(player.player_board.cells.keys[0])
 
-      expect(player.comp_shot_test("A1")).to eq("You sunk my Cruiser!")
+      cruiser.hit
+      cruiser.hit
+
+      player.player_board.place(cruiser, ["A1", "A2", "A3"])
+
+      player.comp_shot
+
       expect(player.player_board.cells["A1"].fired_upon?).to be true
+
+      expect(player.player_board.cells["A1"].render).to eq "X"
     end
   end
 
