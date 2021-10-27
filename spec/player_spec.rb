@@ -52,7 +52,8 @@ RSpec.describe Player do
 
       player.player_ship_place_cruiser
 
-      expect(player.player_board_render).to eq("  1 2 3 4\nA S S S .\nB . . . .\nC . . . .\nD . . . .\n")
+      expected = "  1 2 3 4\nA \e[34mS\e[0m \e[34mS\e[0m \e[34mS\e[0m \e[35m.\e[0m\nB \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m\nC \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m\nD \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m\n"
+      expect(player.player_board_render).to eq(expected)
     end
   end
 
@@ -62,7 +63,8 @@ RSpec.describe Player do
 
       player.player_ship_place_submarine
 
-      expect(player.player_board_render).to eq("  1 2 3 4\nA . . . .\nB S . . .\nC S . . .\nD . . . .\n")
+      expected = "  1 2 3 4\nA \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m\nB \e[34mS\e[0m \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m\nC \e[34mS\e[0m \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m\nD \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m\n"
+      expect(player.player_board_render).to eq(expected)
     end
   end
 
@@ -88,7 +90,7 @@ RSpec.describe Player do
 
       expect(player.player_board.cells["A1"].fired_upon?).to be true
 
-      expect(player.player_board.cells["A1"].render).to eq "M"
+      expect(player.player_board.cells["A1"].render).to eq "\e[33mM\e[0m"
     end
 
     it 'checks if computer shot is hit' do
@@ -100,9 +102,10 @@ RSpec.describe Player do
 
       expect(player.player_board.cells["A1"].fired_upon?).to be true
 
-      expect(player.player_board.cells["A1"].render).to eq "H"
-
-      expect(player.player_board_render).to eq("  1 2 3 4\nA H S S .\nB . . . .\nC . . . .\nD . . . .\n")
+      expect(player.player_board.cells["A1"].render).to eq "\e[32mH\e[0m"
+      
+      expected = "  1 2 3 4\nA \e[32mH\e[0m \e[34mS\e[0m \e[34mS\e[0m \e[35m.\e[0m\nB \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m\nC \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m\nD \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m\n"
+      expect(player.player_board_render).to eq(expected)
     end
 
     it 'checks if computer shot is sink' do
@@ -117,7 +120,7 @@ RSpec.describe Player do
 
       expect(player.player_board.cells["A1"].fired_upon?).to be true
 
-      expect(player.player_board.cells["A1"].render).to eq "X"
+      expect(player.player_board.cells["A1"].render).to eq "\e[31mX\e[0m"
     end
   end
 

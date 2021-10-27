@@ -59,12 +59,13 @@ describe Computer do
       allow(computer).to receive(:player_input).and_return("A1")
 
       computer.comp_board.place(cruiser, ["A2", "A3", "A4"])
-      computer.player_shot # At user input prompt "A1"
-      # computer.player_shot # If at "A1" a second time renders "Invalid selection" message.
-      expect(computer.comp_board.render).to eq("  1 2 3 4\nA M . . .\nB . . . .\nC . . . .\nD . . . .\n")
+      computer.player_shot
+
+      expected = "  1 2 3 4\nA \e[33mM\e[0m \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m\nB \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m\nC \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m\nD \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m\n"
+      expect(computer.comp_board.render).to eq(expected)
       expect(computer.comp_board.cells["A1"].fired_upon?).to be true
 
-      expect(computer.comp_board.cells["A1"].render).to eq("M")
+      expect(computer.comp_board.cells["A1"].render).to eq("\e[33mM\e[0m")
     end
 
     it 'hits at A3' do
@@ -76,9 +77,10 @@ describe Computer do
 
       expect(computer.comp_board.cells["A3"].fired_upon?).to be true
 
-      expect(computer.comp_board.cells["A3"].render).to eq("H")
+      expect(computer.comp_board.cells["A3"].render).to eq("\e[32mH\e[0m")
 
-      expect(computer.comp_board.render).to eq("  1 2 3 4\nA . . H .\nB . . . .\nC . . . .\nD . . . .\n")
+      expected = "  1 2 3 4\nA \e[35m.\e[0m \e[35m.\e[0m \e[32mH\e[0m \e[35m.\e[0m\nB \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m\nC \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m\nD \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m\n"
+      expect(computer.comp_board.render).to eq(expected)
     end
 
     it 'renders a sunk ship' do
@@ -92,8 +94,9 @@ describe Computer do
       computer.player_shot
 
       expect(computer.comp_board.cells["A3"].fired_upon?).to be true
-
-      expect(computer.comp_board.render).to eq("  1 2 3 4\nA . . X .\nB . . . .\nC . . . .\nD . . . .\n")
+      
+      expected = "  1 2 3 4\nA \e[35m.\e[0m \e[35m.\e[0m \e[31mX\e[0m \e[35m.\e[0m\nB \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m\nC \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m\nD \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m\n"
+      expect(computer.comp_board.render).to eq(expected)
     end
   end
 
