@@ -123,7 +123,8 @@ RSpec.describe Player do
 
   describe '#player_board_render' do
     it 'renders player board' do
-      expect(player.player_board_render).to eq("  1 2 3 4\nA . . . .\nB . . . .\nC . . . .\nD . . . .\n")
+      expected = "  1 2 3 4\nA \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m\nB \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m\nC \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m\nD \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m\n"
+      expect(player.player_board_render).to eq(expected)
     end
   end
 

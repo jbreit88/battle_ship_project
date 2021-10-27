@@ -41,7 +41,8 @@ describe Computer do
 
   describe '#cpu_display_board' do
     it 'renders computer board' do
-      expect(computer.cpu_display_board).to eq("  1 2 3 4\nA . . . .\nB . . . .\nC . . . .\nD . . . .\n")
+      expected = "  1 2 3 4\nA \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m\nB \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m\nC \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m\nD \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m \e[35m.\e[0m\n"
+      expect(computer.cpu_display_board).to eq(expected)
     end
   end
 
