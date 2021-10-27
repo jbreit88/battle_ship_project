@@ -38,7 +38,7 @@ class Board
       false
     elsif ascending_numbers(cords) == false && single_number(cords) == false
       false
-    elsif cord_to_ranges(cords) > 1
+    elsif cord_to_ranges(cords) > 1 || letters_to_ranges(cords) > 1
       false
     elsif ascending_letters(cords) && single_number(cords)
       true
@@ -47,8 +47,14 @@ class Board
     end
   end
 
-  def overlapping_ships(cords)
-    cords.any? {|cord| @cells[cord].empty? == false}
+  def overlapping_ships(cords)# This breaks if use number outside range. # Pass ship and coord
+    cords.any? {|cord| @cells[cord].empty? == false} # try .ship? instead of .empty? #def contain_ship?(ship, coord)
+  end
+
+  def place(ship, coordinates)
+    if valid_placement?(ship, coordinates)
+      coordinates.map { |coordinate| @cells[coordinate].place_ship(ship)}
+    end
   end
 
   def cords_to_integers(cords) #deletes letters from coordiantes, returns cords of integers
@@ -113,6 +119,24 @@ class Board
     ranges.uniq.length
   end
 
+  def letters_to_ranges(cords)
+  letters = cord_letters_to_integers(cords)
+  letters.compact.uniq.sort
+  ranges = []
+  if !letters.empty?
+    left, right = letters.first, nil
+    letters.each do |let|
+      if right && let != right.succ
+        ranges << Range.new(left,right)
+        left = let
+      end
+      right = let
+    end
+    ranges << Range.new(left,right)
+  end
+  ranges.uniq.length
+end
+
   def place(ship, coordinates)
     if valid_placement?(ship, coordinates)
       coordinates.map { |coordinate| @cells[coordinate].place_ship(ship)}
@@ -121,7 +145,7 @@ class Board
 
   def render(arg = false)
     if arg == false
-      board_render = "  1 2 3 4\n" +
+      board_render = "  1 2 3 4\n"  +
       "A #{@cells["A1"].render(arg)} #{@cells["A2"].render(arg)} #{@cells["A3"].render(arg)} #{@cells["A4"].render(arg)}\n" +
       "B #{@cells["B1"].render(arg)} #{@cells["B2"].render(arg)} #{@cells["B3"].render(arg)} #{@cells["B4"].render(arg)}\n" +
       "C #{@cells["C1"].render(arg)} #{@cells["C2"].render(arg)} #{@cells["C3"].render(arg)} #{@cells["C4"].render(arg)}\n" +

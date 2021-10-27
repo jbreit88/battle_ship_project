@@ -92,21 +92,21 @@ RSpec.describe Cell do
 
   describe '#render' do
     it 'has default value' do
-      expect(@cell_1.render).to eq(".")
+      expect(@cell_1.render).to eq("\e[35m.\e[0m")
     end
 
     it 'tells if you miss' do
       @cell_1.fire_upon
-      expect(@cell_1.render).to eq("M")
+      expect(@cell_1.render).to eq("\e[33mM\e[0m")
     end
 
     it 'tells if there is ship' do
-      expect(@cell_2.render(true)).to eq("S")
+      expect(@cell_2.render(true)).to eq("\e[34mS\e[0m")
     end
 
     it 'tells if hit' do
       @cell_2.fire_upon
-      expect(@cell_2.render).to eq("H")
+      expect(@cell_2.render).to eq("\e[32mH\e[0m")
     end
 
     it 'tells if sunk' do
@@ -115,7 +115,7 @@ RSpec.describe Cell do
       @cruiser.hit
       @cruiser.hit
       expect(@cruiser.sunk?).to eq true
-      expect(@cell_2.render).to eq("X")
+      expect(@cell_2.render).to eq("\e[31mX\e[0m")
     end
   end
 end
