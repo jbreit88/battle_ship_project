@@ -20,9 +20,11 @@ class Player
 
   def player_ship_place_cruiser
     player_input = player_input_method
-
     loop do
-      if @player_board.valid_placement?(@player_cruiser, player_input) == false
+      if player_input.all? { |cord| player_board.cells.include?(cord)} == false
+        puts "#{"\e[32m#{"Those are invalid coordinates. Please try again:"}\e[0m"}"
+        player_input = player_input_method
+      elsif @player_board.valid_placement?(@player_cruiser, player_input) == false
         puts "#{"\e[32m#{"Those are invalid coordinates. Please try again:"}\e[0m"}"
         player_input = player_input_method
       elsif @player_board.valid_placement?(@player_cruiser, player_input)
@@ -38,8 +40,11 @@ class Player
   def player_ship_place_submarine
     player_input_2 = player_input_method
     loop do
-      if @player_board.valid_placement?(@player_submarine, player_input_2) == false
-        puts “Those are invalid coordinates. Please try again:”
+      if player_input_2.all? { |cord| player_board.cells.include?(cord)} == false
+        puts "#{"\e[32m#{"Those are invalid coordinates. Please try again:"}\e[0m"}"
+        player_input_2 = player_input_method
+      elsif @player_board.valid_placement?(@player_submarine, player_input_2) == false
+        puts "#{"\e[32m#{"Those are invalid coordinates. Please try again:"}\e[0m"}"
         player_input_2 = player_input_method
       elsif @player_board.valid_placement?(@player_submarine, player_input_2)
         @player_board.place(@player_submarine, player_input_2)

@@ -47,7 +47,7 @@ class Board
     end
   end
 
-  def overlapping_ships(cords) # This breaks if use number outside range. # Pass ship and coord
+  def overlapping_ships(cords)# This breaks if use number outside range. # Pass ship and coord
     cords.any? {|cord| @cells[cord].empty? == false} # try .ship? instead of .empty? #def contain_ship?(ship, coord)
   end
 
@@ -120,22 +120,22 @@ class Board
   end
 
   def letters_to_ranges(cords)
-    letters = cord_letters_to_integers(cords)
-    letters.compact.uniq.sort
-    ranges = []
-    if !letters.empty?
-      left, right = letters.first, nil
-      letters.each do |let|
-        if right && let != right.succ
-          ranges << Range.new(left,right)
-          left = let
-        end
-        right = let
+  letters = cord_letters_to_integers(cords)
+  letters.compact.uniq.sort
+  ranges = []
+  if !letters.empty?
+    left, right = letters.first, nil
+    letters.each do |let|
+      if right && let != right.succ
+        ranges << Range.new(left,right)
+        left = let
       end
-      ranges << Range.new(left,right)
+      right = let
     end
-    ranges.uniq.length
+    ranges << Range.new(left,right)
   end
+  ranges.uniq.length
+end
 
   def place(ship, coordinates)
     if valid_placement?(ship, coordinates)
